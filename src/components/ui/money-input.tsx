@@ -1,7 +1,7 @@
 import { FormInput } from "@/components/product/form-field";
 import type { TextInputProps } from "react-native";
 
-type MoneyInputProps = Omit<TextInputProps, "value" | "onChangeText"> & {
+type MoneyInputProps = Omit<TextInputProps, "value" | "onChangeText" | "onChange"> & {
   value: number;
   onChange: (value: number) => void;
   error?: string;
