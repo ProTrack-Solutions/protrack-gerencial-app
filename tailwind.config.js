@@ -13,7 +13,7 @@ module.exports = {
         'surface-selected': '#E0E1E6',
         muted: '#60646C',
         brand: '#3c87f7',
-        splash: '#208AEF',
+        splash: '#7C4FE0',
         line: '#E0E1E6',
         field: '#F6F7F9',
         placeholder: '#8B8D98',
