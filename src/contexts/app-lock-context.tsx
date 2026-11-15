@@ -102,7 +102,7 @@ export function AppLockProvider({ children }: { children: ReactNode }) {
       {children}
       <Modal visible={locked} animationType="fade" statusBarTranslucent navigationBarTranslucent onRequestClose={() => undefined}>
         <LinearGradient colors={Gradients.brand} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} className="flex-1 items-center justify-center gap-five px-five">
-          <Logo width={96} />
+          <Logo width={180} />
           <View className="items-center gap-two">
             <ThemedText className="text-xl font-bold text-white">App bloqueado</ThemedText>
             <ThemedText type="small" className="text-center text-white/85">
