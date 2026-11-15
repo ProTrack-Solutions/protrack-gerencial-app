@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "protrack-stock-app",
-    "slug": "protrack-stock-app",
+    "name": "protrack-gerencial-app",
+    "slug": "protrack-gerencial-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "protrackstockapp",
+    "scheme": "protrackgerencialapp",
     "userInterfaceStyle": "light",
     "ios": {
       "icon": "./assets/images/icon.png",
-      "bundleIdentifier": "com.anonymous.protrackstockapp"
+      "bundleIdentifier": "com.anonymous.protrackgerencialapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +19,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.protrackstockapp"
+      "package": "com.anonymous.protrackgerencialapp"
     },
     "web": {
       "output": "static",
