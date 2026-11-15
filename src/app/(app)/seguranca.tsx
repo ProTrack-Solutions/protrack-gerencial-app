@@ -76,7 +76,7 @@ export default function SecurityScreen() {
       // A senha guardada para a biometria precisa acompanhar a troca.
       if (biometricOn && user) {
         try {
-          await biometric.enable(user.email, password, user.name);
+          await biometric.updatePassword(user.email, password);
         } catch {
           await biometric.disable();
           Alert.alert("Biometria desativada", "Entre com a nova senha e ative a entrada por biometria de novo.");
@@ -144,9 +144,14 @@ export default function SecurityScreen() {
       return;
     }
     try {
-      await biometric.enable(user.email, confirmPassword, user.name);
-      haptics.success();
-      setAskPassword(false);
+      const ok = await biometric.enable(user.email, confirmPassword, user.name);
+      if (ok) {
+        haptics.success();
+        setAskPassword(false);
+      } else {
+        haptics.warning();
+        setConfirmError(`Não foi possível confirmar ${biometric.support.label}. Tente de novo.`);
+      }
     } catch {
       haptics.error();
       setConfirmError(`Não foi possível confirmar ${biometric.support.label}.`);
@@ -169,7 +174,7 @@ export default function SecurityScreen() {
             <ThemedText type="small" themeColor="textSecondary" className="flex-1">
               {biometric.support.canStoreCredentials
                 ? `Entre no app com ${biometric.support.label}, sem digitar a senha. A senha fica no cofre seguro do aparelho.`
-                : "Cadastre uma digital ou o Face ID nas configurações do aparelho para usar este recurso."}
+                : "Cadastre uma digital, o rosto ou um bloqueio de tela (PIN/padrão) nas configurações do aparelho para usar este recurso."}
             </ThemedText>
             <Switch
               value={biometricOn}

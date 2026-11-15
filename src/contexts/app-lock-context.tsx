@@ -1,5 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { AppState, Modal, Pressable, View } from "react-native";
@@ -9,7 +8,7 @@ import { LinearGradient } from "@/components/ui/linear-gradient";
 import { Logo } from "@/components/ui/logo";
 import { Gradients } from "@/constants/theme";
 import { useAuth } from "@/contexts/auth-context";
-import { detectBiometricSupport, NO_BIOMETRIC_SUPPORT, type BiometricSupport } from "@/utils/biometrics";
+import { confirmBiometric, detectBiometricSupport, NO_BIOMETRIC_SUPPORT, type BiometricSupport } from "@/utils/biometrics";
 import { haptics } from "@/utils/haptics";
 
 const STORAGE_KEY = "protrack_biometric_lock";
@@ -25,25 +24,21 @@ type AppLockContextValue = {
 
 const AppLockContext = createContext<AppLockContextValue | null>(null);
 
-const authenticate = (promptMessage: string) =>
-  LocalAuthentication.authenticateAsync({
-    promptMessage,
-    cancelLabel: "Cancelar",
-    // Sem biometria cadastrada no momento, aceita o PIN/padrão do aparelho.
-    disableDeviceFallback: false,
-  });
+// Aceita rosto, digital ou o PIN/padrão do aparelho.
+const authenticate = async (promptMessage: string) => ({ success: await confirmBiometric(promptMessage) });
 
 /**
  * Bloqueia o app com a biometria do aparelho: ao abrir e ao voltar do segundo
  * plano depois de 1 minuto. A preferência fica salva no aparelho.
  */
 export function AppLockProvider({ children }: { children: ReactNode }) {
-  const { signOut } = useAuth();
+  const { signOut, signedInNow } = useAuth();
   const [enabled, setEnabledState] = useState(false);
   const [support, setSupport] = useState<BiometricSupport>(NO_BIOMETRIC_SUPPORT);
   const [locked, setLocked] = useState(false);
   const backgroundAt = useRef<number | null>(null);
   const enabledRef = useRef(false);
+  const signedInNowRef = useRef(signedInNow);
 
   useEffect(() => {
     detectBiometricSupport()
@@ -54,7 +49,8 @@ export function AppLockProvider({ children }: { children: ReactNode }) {
         const on = value === "1";
         enabledRef.current = on;
         setEnabledState(on);
-        if (on) setLocked(true);
+        // Quem acabou de entrar com senha/biometria não precisa desbloquear de novo.
+        if (on && !signedInNowRef.current) setLocked(true);
       })
       .catch(() => undefined);
   }, []);

@@ -1,4 +1,5 @@
 import { isAxiosError } from "axios";
+import { AppState } from "react-native";
 import {
   createContext,
   useCallback,
@@ -18,9 +19,11 @@ import {
   disableBiometricLogin,
   enableBiometricLogin,
   getBiometricProfile,
+  hasDeclinedBiometricLogin,
   markSignedOut,
   NO_BIOMETRIC_SUPPORT,
   readBiometricCredentials,
+  updateBiometricPassword,
   type BiometricProfile,
   type BiometricSupport,
 } from "@/utils/biometrics";
@@ -43,9 +46,20 @@ type AuthContextValue = {
     profile: BiometricProfile | null;
     /** Pede a biometria e entra. Retorna `false` se o usuário cancelou. */
     signIn: () => Promise<boolean>;
-    enable: (email: string, password: string, name: string) => Promise<void>;
+    /** Confirma a biometria e guarda a senha. Retorna `false` se o usuário cancelou. */
+    enable: (email: string, password: string, name: string) => Promise<boolean>;
     disable: () => Promise<void>;
+    /** Troca a senha guardada (depois de alterar a senha no app). */
+    updatePassword: (email: string, password: string) => Promise<void>;
+    /** Pergunta pendente "Ativar entrada por biometria?" depois do login com senha. */
+    offer: { email: string; name: string } | null;
+    /** Confere se vale perguntar e, se sim, deixa a pergunta pendente. */
+    offerAfterLogin: (email: string, password: string, name: string) => Promise<void>;
+    acceptOffer: () => Promise<boolean>;
+    dismissOffer: () => void;
   };
+  /** Entrou com senha/biometria agora (não é sessão restaurada ao abrir o app). */
+  signedInNow: boolean;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -55,18 +69,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [support, setSupport] = useState<BiometricSupport>(NO_BIOMETRIC_SUPPORT);
   const [profile, setProfile] = useState<BiometricProfile | null>(null);
+  const [offer, setOffer] = useState<{ email: string; password: string; name: string } | null>(null);
+  const [signedInNow, setSignedInNow] = useState(false);
 
   const endSession = useCallback(() => {
     setUser(null);
     setStatus("unauthenticated");
   }, []);
 
-  useEffect(() => {
-    detectBiometricSupport()
-      .then(setSupport)
-      .catch(() => undefined);
-    getBiometricProfile().then(setProfile);
+  const refreshSupport = useCallback(async () => {
+    try {
+      const next = await detectBiometricSupport();
+      setSupport(next);
+      return next;
+    } catch {
+      return NO_BIOMETRIC_SUPPORT;
+    }
   }, []);
+
+  useEffect(() => {
+    refreshSupport();
+    getBiometricProfile().then(setProfile);
+    // A pessoa pode cadastrar a digital nas configurações do aparelho e voltar.
+    const sub = AppState.addEventListener("change", (state) => {
+      if (state === "active") refreshSupport();
+    });
+    return () => sub.remove();
+  }, [refreshSupport]);
 
   // Restaura a sessão salva ao abrir o app.
   useEffect(() => {
@@ -104,6 +133,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw error;
     }
     setUser(me);
+    setSignedInNow(true);
     setStatus("authenticated");
     return me;
   }, []);
@@ -116,6 +146,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Mesmo se a API falhar, a sessão local é encerrada.
     }
     await tokenStorage.clear();
+    setOffer(null);
+    setSignedInNow(false);
     markSignedOut();
     endSession();
   }, [endSession]);
@@ -131,11 +163,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const enableBiometric = useCallback(
     async (email: string, password: string, name: string) => {
-      await enableBiometricLogin(email, password, name, `Confirme para entrar com ${support.label}`);
-      setProfile({ email, name });
+      const ok = await enableBiometricLogin(email, password, name, `Confirme para ativar a entrada com ${support.label}`);
+      if (ok) setProfile({ email, name });
+      return ok;
     },
     [support.label],
   );
+
+  const updatePassword = useCallback(async (email: string, password: string) => {
+    await updateBiometricPassword(email, password);
+  }, []);
+
+  const offerAfterLogin = useCallback(
+    async (email: string, password: string, name: string) => {
+      const current = await refreshSupport();
+      if (!current.canStoreCredentials) return;
+      if (profile?.email.toLowerCase() === email.toLowerCase()) return;
+      if (await hasDeclinedBiometricLogin(email)) return;
+      setOffer({ email, password, name });
+    },
+    [profile, refreshSupport],
+  );
+
+  const acceptOffer = useCallback(async () => {
+    if (!offer) return false;
+    const ok = await enableBiometric(offer.email, offer.password, offer.name);
+    if (ok) setOffer(null);
+    return ok;
+  }, [offer, enableBiometric]);
+
+  const dismissOffer = useCallback(() => setOffer(null), []);
 
   const signInWithBiometrics = useCallback(async () => {
     let credentials;
@@ -145,7 +202,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error instanceof BiometricInvalidatedError) {
         setProfile(null);
         throw new BiometricLoginError(
-          "A biometria do aparelho mudou. Entre com a senha para ativar de novo.",
+          "A entrada por biometria precisa ser ativada de novo. Entre com a senha.",
         );
       }
       throw error;
@@ -169,14 +226,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [signIn, disableBiometric]);
 
+  const publicOffer = useMemo(() => (offer ? { email: offer.email, name: offer.name } : null), [offer]);
+
   const biometric = useMemo(
-    () => ({ support, profile, signIn: signInWithBiometrics, enable: enableBiometric, disable: disableBiometric }),
-    [support, profile, signInWithBiometrics, enableBiometric, disableBiometric],
+    () => ({
+      support,
+      profile,
+      signIn: signInWithBiometrics,
+      enable: enableBiometric,
+      disable: disableBiometric,
+      updatePassword,
+      offer: publicOffer,
+      offerAfterLogin,
+      acceptOffer,
+      dismissOffer,
+    }),
+    [support, profile, signInWithBiometrics, enableBiometric, disableBiometric, updatePassword, publicOffer, offerAfterLogin, acceptOffer, dismissOffer],
   );
 
   const value = useMemo(
-    () => ({ status, user, signIn, signOut, refreshUser, biometric }),
-    [status, user, signIn, signOut, refreshUser, biometric],
+    () => ({ status, user, signIn, signOut, refreshUser, biometric, signedInNow }),
+    [status, user, signIn, signOut, refreshUser, biometric, signedInNow],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
