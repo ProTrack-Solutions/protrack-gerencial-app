@@ -1,8 +1,13 @@
 import type {
+  BillCategoryRecord,
+  CashRegisterRecord,
+  CompanySetting,
+  CompanySettingKey,
   CompanyUser,
   CreateUserParams,
   DepartmentRecord,
   ModuleRecord,
+  PaymentMethodRecord,
   ProductCategoryRecord,
   RecordStatus,
   SaveDepartmentParams,
@@ -47,3 +52,25 @@ export const ListCompanyUsers = async (signal?: AbortSignal) =>
 export const CreateCompanyUser = (params: CreateUserParams) => apiClient.post("/user", params);
 export const UpdateCompanyUser = (id: string, params: UpdateUserParams) => apiClient.put(`/user/${id}`, params);
 export const SetUserStatus = (id: string, status: RecordStatus) => apiClient.put(`/user/status/${id}`, { status });
+
+// ─── Financeiro ─────────────────────────────────────────────────────────────
+export const ListPaymentMethods = async (signal?: AbortSignal) =>
+  list((await apiClient.get<PaymentMethodRecord[] | null>("/payment-methods", { signal })).data);
+export const CreatePaymentMethod = (params: { name: string; type: string }) => apiClient.post("/payment-methods", params);
+export const TogglePaymentMethod = (id: string, isActive: boolean) => apiClient.put(`/payment-methods/${id}`, { is_active: isActive });
+
+export const ListBillCategoryRecords = async (signal?: AbortSignal) =>
+  list((await apiClient.get<BillCategoryRecord[] | null>("/bill-categories", { signal })).data);
+export const CreateBillCategory = (params: { name: string; description: string }) => apiClient.post("/bill-categories", params);
+export const ToggleBillCategory = (id: string, isActive: boolean) => apiClient.put(`/bill-categories/toggle/${id}`, { id, is_active: isActive });
+export const DeleteBillCategory = (id: string) => apiClient.delete(`/bill-categories/${id}`);
+
+// ─── Sistema (ADMIN) ────────────────────────────────────────────────────────
+export const ListCompanySettings = async (signal?: AbortSignal) =>
+  list((await apiClient.get<CompanySetting[] | null>("/company-settings", { signal })).data);
+export const SaveCompanySetting = (key: CompanySettingKey, value: string | number | boolean) => apiClient.post("/company-settings", { key, value });
+
+export const ListCashRegisterRecords = async (signal?: AbortSignal) =>
+  list((await apiClient.get<CashRegisterRecord[] | null>("/cash-register/registers", { signal })).data);
+export const CreateCashRegister = (name: string) => apiClient.post("/cash-register/registers", { name, active: true });
+export const UpdateCashRegister = (id: string, params: { name: string; active: boolean }) => apiClient.put(`/cash-register/registers/${id}`, params);

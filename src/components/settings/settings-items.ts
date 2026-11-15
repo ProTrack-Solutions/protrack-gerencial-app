@@ -36,6 +36,13 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { label: "Categorias de produto", description: "Organização do estoque", href: "/categorias-produto", icon: "pricetags-outline", color: "#DB2777", module: "inventory" },
     ],
   },
+  {
+    title: "Empresa",
+    items: [
+      { label: "Financeiro", description: "Formas de pagamento e categorias de contas", href: "/config-financeiro", icon: "wallet-outline", color: "#0E7490", module: "financial" },
+      { label: "Sistema", description: "Caixas, estoque baixo e prazo de troca", href: "/config-sistema", icon: "options-outline", color: "#60646C", adminOnly: true },
+    ],
+  },
 ];
 
 export function visibleSettings(user: User | null): SettingsSection[] {

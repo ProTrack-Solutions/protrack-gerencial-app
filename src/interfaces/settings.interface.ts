@@ -74,3 +74,31 @@ export interface UpdateUserParams {
   role: string;
   department_id: string;
 }
+
+export interface PaymentMethodRecord {
+  id: string;
+  name: string;
+  type: string;
+  is_active: boolean;
+}
+
+export interface BillCategoryRecord {
+  id: string;
+  name: string;
+  description: string;
+  is_active: boolean;
+}
+
+export type CompanySettingKey = "require_open_cash_register" | "low_stock" | "return_window_days";
+
+export interface CompanySetting {
+  key: string;
+  value: string | number | boolean;
+}
+
+export interface CashRegisterRecord {
+  id: string;
+  name: string;
+  active: boolean;
+  open_session: { opened_by_name: string; opened_at: string } | null;
+}
