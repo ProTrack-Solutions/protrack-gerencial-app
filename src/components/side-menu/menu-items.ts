@@ -58,6 +58,14 @@ export const MENU_SECTIONS: MenuSection[] = [
     ],
   },
   {
+    title: "Compras",
+    module: "purchases",
+    items: [
+      { label: "Pedidos de Compra", href: "/compras", icon: "bag-handle-outline", activeIcon: "bag-handle" },
+      { label: "Novo Pedido", href: "/novo-pedido-compra", icon: "bag-add-outline", activeIcon: "bag-add" },
+    ],
+  },
+  {
     title: "Estoque",
     module: "inventory",
     items: [
