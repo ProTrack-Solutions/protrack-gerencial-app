@@ -1,3 +1,5 @@
+import type { Announcement } from "./announcement.interface";
+
 // Formatos espelhados do protrack-api usados no dashboard inicial.
 
 import type { PaymentMethod } from "./sale.interface";
@@ -38,14 +40,8 @@ export interface BillsPayableSummary {
   total_to_pay: number;
 }
 
-/** GET /announcements */
-export interface Announcement {
-  title: string;
-  content: string;
-  type: string;
-  starts_at: string;
-  expires_at: string;
-}
+/** GET /announcements/today */
+export type { Announcement } from "./announcement.interface";
 
 export interface DashboardData {
   salesSummary: SalesSummary;
