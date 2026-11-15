@@ -3,11 +3,11 @@ import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
 export type BiometricSupport = {
-  /** Aparelho tem biometria (ou bloqueio de tela) cadastrada. */
+  /** Aparelho tem biometria ou bloqueio de tela cadastrado. */
   available: boolean;
-  /** Dá para guardar a senha protegida por biometria forte (login estilo banco). */
+  /** Dá para usar a entrada estilo banco (biometria ou senha do aparelho). */
   canStoreCredentials: boolean;
-  /** "Face ID", "reconhecimento facial" ou "impressão digital". */
+  /** "Face ID", "reconhecimento facial", "impressão digital" ou "bloqueio de tela". */
   label: string;
   face: boolean;
 };
@@ -16,51 +16,59 @@ export const NO_BIOMETRIC_SUPPORT: BiometricSupport = { available: false, canSto
 
 export async function detectBiometricSupport(): Promise<BiometricSupport> {
   if (Platform.OS === "web") return NO_BIOMETRIC_SUPPORT;
-  const [hardware, enrolled, types] = await Promise.all([
+  const [hardware, level, types] = await Promise.all([
     LocalAuthentication.hasHardwareAsync(),
-    LocalAuthentication.isEnrolledAsync(),
+    LocalAuthentication.getEnrolledLevelAsync(),
     LocalAuthentication.supportedAuthenticationTypesAsync(),
   ]);
-  const face = types.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION);
+  const biometricEnrolled = hardware && level >= LocalAuthentication.SecurityLevel.BIOMETRIC_WEAK;
+  const face = biometricEnrolled && types.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION);
   const fingerprint = types.includes(LocalAuthentication.AuthenticationType.FINGERPRINT);
-  let canStore = false;
-  try {
-    canStore = hardware && enrolled && SecureStore.canUseBiometricAuthentication();
-  } catch {
-    canStore = false;
+  // Sem biometria, o PIN/padrão do aparelho também protege a entrada.
+  const usable = level > LocalAuthentication.SecurityLevel.NONE;
+  let label = "bloqueio de tela";
+  if (biometricEnrolled) {
+    if (Platform.OS === "ios") label = face ? "Face ID" : "Touch ID";
+    else label = face && !fingerprint ? "reconhecimento facial" : fingerprint && !face ? "impressão digital" : "biometria";
   }
-  return {
-    available: hardware && enrolled,
-    canStoreCredentials: canStore,
-    // No Android o rosto costuma ser biometria "fraca": a digital é o que libera o cofre.
-    label: face && (Platform.OS === "ios" || !fingerprint) ? (Platform.OS === "ios" ? "Face ID" : "reconhecimento facial") : "impressão digital",
-    face,
-  };
+  return { available: usable, canStoreCredentials: usable, label, face };
+}
+
+/** Pede a biometria do aparelho (cai no PIN/padrão se preciso). */
+export async function confirmBiometric(promptMessage: string) {
+  const result = await LocalAuthentication.authenticateAsync({
+    promptMessage,
+    cancelLabel: "Cancelar",
+    disableDeviceFallback: false,
+    // Aceita o desbloqueio facial comum do Android (classe 2), não só digital.
+    biometricsSecurityLevel: "weak",
+  });
+  return result.success;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Login por biometria                                                        */
 /* -------------------------------------------------------------------------- */
 
-/** Credenciais no cofre do aparelho, liberadas só pela biometria. */
-const CREDENTIALS_KEY = "protrack_biometric_credentials";
-/** Serviço próprio: o item com `requireAuthentication` precisa de uma chave nova (ver docs do SecureStore). */
-const CREDENTIALS_SERVICE = "protrack_biometric_login";
+/**
+ * Credenciais criptografadas no cofre do sistema (Keychain/Keystore), só deste
+ * aparelho. O app só lê depois que a biometria confirma.
+ */
+const CREDENTIALS_KEY = "protrack_biometric_credentials_v2";
+/** Versão anterior (cofre com requireAuthentication), removida ao desativar. */
+const LEGACY_CREDENTIALS = { key: "protrack_biometric_credentials", service: "protrack_biometric_login" };
 /** Quem está cadastrado (sem senha), para mostrar "Olá, Fulano" na tela de login. */
 const PROFILE_KEY = "protrack_biometric_profile";
-/** E-mails que já recusaram a oferta, para não perguntar a cada login. */
-const DECLINED_KEY = "protrack_biometric_declined";
+/** E-mails que pediram para não perguntar mais. */
+const DECLINED_KEY = "protrack_biometric_declined_v2";
 
 export type BiometricProfile = { email: string; name: string };
 type Credentials = { email: string; password: string };
 
-const vaultOptions = (prompt: string): SecureStore.SecureStoreOptions => ({
-  keychainService: CREDENTIALS_SERVICE,
-  requireAuthentication: true,
-  authenticationPrompt: prompt,
-  // Não vai para backup nem para outro aparelho; some se o bloqueio de tela for removido.
-  keychainAccessible: SecureStore.WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,
-});
+const VAULT_OPTIONS: SecureStore.SecureStoreOptions = {
+  // Não vai para backup nem para outro aparelho.
+  keychainAccessible: SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
+};
 
 export async function getBiometricProfile(): Promise<BiometricProfile | null> {
   if (Platform.OS === "web") return null;
@@ -72,18 +80,26 @@ export async function getBiometricProfile(): Promise<BiometricProfile | null> {
   }
 }
 
-/** Guarda as credenciais protegidas pela biometria (no Android já pede a digital aqui). */
+/** Confirma a biometria e guarda as credenciais. Retorna `false` se o usuário cancelou. */
 export async function enableBiometricLogin(email: string, password: string, name: string, prompt: string) {
+  if (!(await confirmBiometric(prompt))) return false;
   const credentials: Credentials = { email, password };
-  await SecureStore.setItemAsync(CREDENTIALS_KEY, JSON.stringify(credentials), vaultOptions(prompt));
+  await SecureStore.setItemAsync(CREDENTIALS_KEY, JSON.stringify(credentials), VAULT_OPTIONS);
   await SecureStore.setItemAsync(PROFILE_KEY, JSON.stringify({ email, name } satisfies BiometricProfile));
   await clearDeclined(email);
+  return true;
+}
+
+/** Atualiza a senha guardada (ex: depois de trocar a senha no app), sem pedir biometria. */
+export async function updateBiometricPassword(email: string, password: string) {
+  await SecureStore.setItemAsync(CREDENTIALS_KEY, JSON.stringify({ email, password } satisfies Credentials), VAULT_OPTIONS);
 }
 
 export async function disableBiometricLogin() {
   await Promise.allSettled([
-    SecureStore.deleteItemAsync(CREDENTIALS_KEY, { keychainService: CREDENTIALS_SERVICE }),
+    SecureStore.deleteItemAsync(CREDENTIALS_KEY, VAULT_OPTIONS),
     SecureStore.deleteItemAsync(PROFILE_KEY),
+    SecureStore.deleteItemAsync(LEGACY_CREDENTIALS.key, { keychainService: LEGACY_CREDENTIALS.service }),
   ]);
 }
 
@@ -102,27 +118,21 @@ export const consumeSignedOut = () => {
 
 /**
  * Pede a biometria e devolve as credenciais. `null` quando o usuário cancela.
- * Se a biometria do aparelho mudou (digital nova), o cofre é invalidado pelo
- * sistema: limpa tudo e lança `BiometricInvalidatedError`.
+ * Se as credenciais sumiram do cofre, limpa tudo e lança `BiometricInvalidatedError`.
  */
 export async function readBiometricCredentials(prompt: string): Promise<Credentials | null> {
+  if (!(await confirmBiometric(prompt))) return null;
+  let raw: string | null = null;
   try {
-    const raw = await SecureStore.getItemAsync(CREDENTIALS_KEY, vaultOptions(prompt));
-    if (!raw) {
-      await disableBiometricLogin();
-      throw new BiometricInvalidatedError();
-    }
-    return JSON.parse(raw) as Credentials;
-  } catch (error) {
-    if (error instanceof BiometricInvalidatedError) throw error;
-    const message = String((error as Error)?.message ?? error).toLowerCase();
-    if (message.includes("invalidated") || message.includes("permanently") || message.includes("decrypt")) {
-      await disableBiometricLogin();
-      throw new BiometricInvalidatedError();
-    }
-    // Cancelado ou biometria não reconhecida.
-    return null;
+    raw = await SecureStore.getItemAsync(CREDENTIALS_KEY, VAULT_OPTIONS);
+  } catch {
+    raw = null;
   }
+  if (!raw) {
+    await disableBiometricLogin();
+    throw new BiometricInvalidatedError();
+  }
+  return JSON.parse(raw) as Credentials;
 }
 
 async function readDeclined(): Promise<string[]> {

@@ -9,7 +9,7 @@ import { TextField } from "@/components/login/text-field";
 import { ThemedText } from "@/components/themed-text";
 import { BiometricLoginError, useAuth } from "@/contexts/auth-context";
 import { getLoginErrorMessage } from "@/service/auth.service";
-import { consumeSignedOut, declineBiometricLogin, hasDeclinedBiometricLogin } from "@/utils/biometrics";
+import { consumeSignedOut } from "@/utils/biometrics";
 import { haptics } from "@/utils/haptics";
 
 type LoginFormValues = {
@@ -71,38 +71,12 @@ export function LoginForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
-  /** Depois do login com senha, oferece ativar a entrada por biometria. */
-  const offerBiometric = async (email: string, password: string, name: string) => {
-    if (!biometric.support.canStoreCredentials) return;
-    if (profile?.email.toLowerCase() === email.toLowerCase()) return;
-    if (await hasDeclinedBiometricLogin(email)) return;
-    const label = biometric.support.label;
-    Alert.alert(
-      `Entrar com ${label}?`,
-      `Nas próximas vezes, entre no ProTrack só com ${label}, sem digitar a senha. A senha fica guardada no cofre seguro do aparelho.`,
-      [
-        { text: "Agora não", style: "cancel", onPress: () => declineBiometricLogin(email) },
-        {
-          text: "Ativar",
-          onPress: async () => {
-            try {
-              await biometric.enable(email, password, name);
-              haptics.success();
-            } catch {
-              haptics.error();
-              Alert.alert("Não ativado", `Não foi possível confirmar ${label}. Você pode ativar depois em Configurações > Segurança.`);
-            }
-          },
-        },
-      ],
-    );
-  };
-
   const onSubmit = async ({ email, password }: LoginFormValues) => {
     setSubmitError(null);
     try {
       const me = await signIn(email.trim(), password);
-      offerBiometric(email.trim(), password, me.name);
+      // A pergunta "Ativar entrada por biometria?" aparece já dentro do app.
+      await biometric.offerAfterLogin(email.trim(), password, me.name);
     } catch (error) {
       setSubmitError(getLoginErrorMessage(error));
     }
