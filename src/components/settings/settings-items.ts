@@ -27,6 +27,15 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
       { label: "Segurança", description: "Senha e desbloqueio por biometria", href: "/seguranca", icon: "shield-checkmark-outline", color: "#2F855A" },
     ],
   },
+  {
+    title: "Cadastros",
+    items: [
+      { label: "Usuários", description: "Quem acessa e com qual perfil", href: "/usuarios", icon: "people-outline", color: "#7C3AED", adminOnly: true },
+      { label: "Departamentos", description: "Equipes e módulos liberados", href: "/departamentos", icon: "git-branch-outline", color: "#0E7490" },
+      { label: "Fornecedores", description: "Contato e endereço para compras", href: "/fornecedores", icon: "business-outline", color: "#B45309", module: "inventory" },
+      { label: "Categorias de produto", description: "Organização do estoque", href: "/categorias-produto", icon: "pricetags-outline", color: "#DB2777", module: "inventory" },
+    ],
+  },
 ];
 
 export function visibleSettings(user: User | null): SettingsSection[] {
