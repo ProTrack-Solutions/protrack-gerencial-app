@@ -112,7 +112,12 @@ export default function HomeScreen() {
           />
           <QuickActions actions={QUICK_ACTIONS} />
           <SalesSummaryCard summary={data.salesSummary} />
-          <AlertsCard announcements={data.announcements} onSeeAll={comingSoon} />
+          <AlertsCard
+            announcements={data.announcements}
+            onOpen={(aviso) =>
+              router.push(aviso ? { pathname: "/avisos", params: { aviso: JSON.stringify(aviso) } } : "/avisos")
+            }
+          />
           <CashFlowChart data={data.cashFlow} />
           <TopProductsCard products={data.topProducts} />
           <PaymentMethodsChart stats={data.paymentMethods} />
