@@ -206,6 +206,19 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
             style={{ paddingBottom: insets.bottom + Spacing.three }}
           >
             <Pressable
+              onPress={() => navigate("/configuracoes")}
+              accessibilityRole="button"
+              accessibilityState={{ selected: pathname === "/configuracoes" }}
+              className="flex-row items-center gap-three rounded-three p-two active:bg-paper/70"
+            >
+              <View className="h-9 w-9 items-center justify-center rounded-two bg-paper">
+                <Ionicons name="settings-outline" size={18} color="#60646C" />
+              </View>
+              <ThemedText type="smallBold" className={pathname === "/configuracoes" ? "text-brand" : ""}>
+                Configurações
+              </ThemedText>
+            </Pressable>
+            <Pressable
               onPress={confirmSignOut}
               accessibilityRole="button"
               className="flex-row items-center gap-three rounded-three p-two active:bg-red-50"
