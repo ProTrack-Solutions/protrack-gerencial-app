@@ -31,6 +31,7 @@ import type {
 } from "@/interfaces/product.interface";
 import { getApiErrorMessage } from "@/service/api.service";
 import { CreateProduct, UpdateProduct } from "@/service/product.service";
+import { haptics } from "@/utils/haptics";
 
 const SIZES = [
   { value: "P", label: "P" },
@@ -186,6 +187,7 @@ export function ProductFormScreen({ product }: ProductFormScreenProps) {
     const validation = validate();
     setErrors(validation);
     if (Object.keys(validation).length > 0 || !category) {
+      haptics.warning();
       Alert.alert("Campos obrigatórios", "Revise os campos destacados.");
       return;
     }
@@ -205,6 +207,7 @@ export function ProductFormScreen({ product }: ProductFormScreenProps) {
       setSubmitting(true);
       try {
         await UpdateProduct(product.id, update);
+        haptics.success();
         Alert.alert("Produto atualizado", "As alterações foram salvas.", [
           { text: "OK", onPress: leave },
         ]);
@@ -239,6 +242,7 @@ export function ProductFormScreen({ product }: ProductFormScreenProps) {
     setSubmitting(true);
     try {
       await CreateProduct(payload);
+      haptics.success();
       Alert.alert(
         "Produto cadastrado",
         "O produto foi adicionado ao estoque.",

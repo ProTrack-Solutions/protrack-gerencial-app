@@ -25,6 +25,7 @@ import {
 import { getApiErrorMessage } from "@/service/api.service";
 import { CreateSale } from "@/service/sale.service";
 import { formatLongDate } from "@/utils/format";
+import { haptics } from "@/utils/haptics";
 
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
@@ -116,6 +117,7 @@ export default function NewSaleScreen() {
 
   const handleSubmit = async () => {
     if (items.length === 0) {
+      haptics.warning();
       Alert.alert("Nenhum produto", "Adicione pelo menos um produto à venda.");
       return;
     }
@@ -139,10 +141,12 @@ export default function NewSaleScreen() {
     setSubmitting(true);
     try {
       await CreateSale(payload);
+      haptics.success();
       Alert.alert("Venda cadastrada", "A venda foi registrada com sucesso.", [
         { text: "OK", onPress: leave },
       ]);
     } catch (error) {
+      haptics.error();
       Alert.alert(
         "Erro ao cadastrar",
         getApiErrorMessage(error, "Não foi possível cadastrar a venda. Tente novamente."),
