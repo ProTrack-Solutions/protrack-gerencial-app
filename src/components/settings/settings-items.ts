@@ -23,7 +23,7 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     title: "Conta",
     items: [
-      { label: "Meu perfil", description: "Nome, e-mail e usuário", href: "/perfil", icon: "person-circle-outline", color: "#3c87f7" },
+      { label: "Meu perfil", description: "Nome, e-mail e usuário", href: "/perfil", icon: "person-circle-outline", color: "#4896EA" },
       { label: "Segurança", description: "Senha e desbloqueio por biometria", href: "/seguranca", icon: "shield-checkmark-outline", color: "#2F855A" },
     ],
   },
