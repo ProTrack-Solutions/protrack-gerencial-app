@@ -37,7 +37,12 @@
       ],
       "expo-font",
       "expo-web-browser",
-      "expo-secure-store",
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Permita que o ProTrack use o Face ID para entrar e desbloquear o app."
+        }
+      ],
       [
         "expo-camera",
         {
@@ -49,7 +54,7 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Permita que o ProTrack use o Face ID para desbloquear o app."
+          "faceIDPermission": "Permita que o ProTrack use o Face ID para entrar e desbloquear o app."
         }
       ]
     ],
