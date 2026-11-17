@@ -34,7 +34,7 @@ export function PaymentMethodGrid({ value, onChange }: PaymentMethodGridProps) {
             accessibilityRole="radio"
             accessibilityState={{ selected }}
             className={`w-[48.5%] flex-row items-center gap-two rounded-two px-three py-three active:opacity-70 ${
-              selected ? "border-brand bg-[#EEF5FF]" : "border-surface-selected bg-paper"
+              selected ? "border-brand bg-[#EBF3FD]" : "border-surface-selected bg-paper"
             }`}
             style={{ borderWidth: 1 }}
           >

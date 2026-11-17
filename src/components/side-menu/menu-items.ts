@@ -32,6 +32,7 @@ export const MENU_SECTIONS: MenuSection[] = [
       { label: "Vendas", href: "/vendas", icon: "receipt-outline", activeIcon: "receipt" },
       { label: "Nova Venda", href: "/nova-venda", icon: "cart-outline", activeIcon: "cart" },
       { label: "Trocas e Devoluções", href: "/devolucoes", icon: "return-down-back-outline", activeIcon: "return-down-back" },
+      { label: "Caixa", href: "/caixa", icon: "calculator-outline", activeIcon: "calculator" },
     ],
   },
   {

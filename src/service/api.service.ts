@@ -6,6 +6,8 @@ import axios, {
 } from "axios";
 import * as SecureStore from "expo-secure-store";
 
+import { deviceCashRegisterReady, getDeviceCashRegisterId } from "@/utils/cash-register-device";
+
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const ACCESS_TOKEN_KEY = "protrack_access_token";
@@ -45,6 +47,12 @@ apiClient.interceptors.request.use(
     const token = await tokenStorage.getAccessToken();
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    // Caixa físico deste aparelho: define em qual turno vendas e recebimentos entram.
+    await deviceCashRegisterReady;
+    const cashRegisterId = getDeviceCashRegisterId();
+    if (cashRegisterId && config.headers) {
+      config.headers.CashRegisterId = cashRegisterId;
     }
     return config;
   },

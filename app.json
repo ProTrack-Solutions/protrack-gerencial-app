@@ -1,25 +1,25 @@
 {
   "expo": {
-    "name": "protrack-stock-app",
-    "slug": "protrack-stock-app",
+    "name": "protrack-gerencial-app",
+    "slug": "protrack-gerencial-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "protrackstockapp",
+    "scheme": "protrackgerencialapp",
     "userInterfaceStyle": "light",
     "ios": {
-      "icon": "./assets/expo.icon",
-      "bundleIdentifier": "com.anonymous.protrackstockapp"
+      "icon": "./assets/images/icon.png",
+      "bundleIdentifier": "com.anonymous.protrackgerencialapp"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#1E1B21",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.protrackstockapp"
+      "package": "com.anonymous.protrackgerencialapp"
     },
     "web": {
       "output": "static",
@@ -30,9 +30,9 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#090E20",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 130
         }
       ],
       "expo-font",
@@ -45,7 +45,13 @@
           "recordAudioAndroid": false
         }
       ],
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Permita que o ProTrack use o Face ID para desbloquear o app."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
