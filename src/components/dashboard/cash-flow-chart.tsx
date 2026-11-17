@@ -83,7 +83,7 @@ export function CashFlowChart({ data }: { data: CashFlowPoint[] }) {
                     x2={width - PADDING.right}
                     y1={y}
                     y2={y}
-                    stroke="#E0E1E6"
+                    stroke="#DEE5ED"
                     strokeDasharray="4 4"
                   />
                 );

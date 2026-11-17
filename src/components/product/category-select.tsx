@@ -65,7 +65,7 @@ export function CategorySelect({ value, onChange, error }: CategorySelectProps) 
         <ThemedText className={value ? undefined : "text-placeholder"}>
           {value?.name ?? "Selecione a categoria"}
         </ThemedText>
-        <Ionicons name="chevron-down" size={18} color="#60646C" />
+        <Ionicons name="chevron-down" size={18} color="#566176" />
       </Pressable>
 
       <BottomSheet visible={open} title="Selecionar categoria" onClose={() => setOpen(false)}>

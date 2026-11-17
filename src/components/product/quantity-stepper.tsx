@@ -28,7 +28,7 @@ export function QuantityStepper({ value, onChangeText, unit }: QuantityStepperPr
           keyboardType="number-pad"
           selectTextOnFocus
           placeholder="0"
-          placeholderTextColor="#8B8D98"
+          placeholderTextColor="#8A94A6"
           className="flex-1 py-three text-center text-base font-bold text-ink"
           accessibilityLabel="Quantidade em estoque"
         />

@@ -69,7 +69,7 @@ export function SplashOverlay() {
         </Reanimated.View>
         <Reanimated.View style={[{ position: "absolute", top: "50%", marginTop: MARK_SIZE / 2 - 8 }, textStyle]} className="items-center">
           <ThemedText className="text-[34px] font-bold leading-[40px] text-white">ProTrack</ThemedText>
-          <ThemedText className="text-sm font-semibold tracking-[8px] text-[#7FD3F0]">GERENCIAL</ThemedText>
+          <ThemedText className="text-sm font-semibold tracking-[8px] text-[#2E9CC4]">GERENCIAL</ThemedText>
         </Reanimated.View>
       </View>
     </Reanimated.View>

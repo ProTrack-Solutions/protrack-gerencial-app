@@ -34,7 +34,7 @@ export function ClientSelect({ value, onChange, error }: ClientSelectProps) {
       <Pressable
         onPress={() => setOpen(true)}
         className="flex-row items-center justify-between rounded-two bg-paper px-three py-three active:bg-surface"
-        style={{ borderWidth: 1, borderColor: error ? "#DC2626" : "#E0E1E6" }}
+        style={{ borderWidth: 1, borderColor: error ? "#DC2626" : "#DEE5ED" }}
         accessibilityRole="button"
       >
         <View className="flex-1 gap-half">
@@ -43,7 +43,7 @@ export function ClientSelect({ value, onChange, error }: ClientSelectProps) {
             {value ? value.cpf || "Cliente identificado" : "Venda sem identificação do cliente"}
           </ThemedText>
         </View>
-        <Ionicons name="chevron-down" size={18} color="#60646C" />
+        <Ionicons name="chevron-down" size={18} color="#566176" />
       </Pressable>
       {error && (
         <ThemedText type="small" className="text-xs" style={{ color: "#DC2626" }}>
@@ -105,7 +105,7 @@ function ClientRow({
     <Pressable
       onPress={onPress}
       className="flex-row items-center justify-between py-three active:opacity-60"
-      style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: "#E0E1E6" }}
+      style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: "#DEE5ED" }}
     >
       <View className="flex-1 gap-half">
         <ThemedText>{title}</ThemedText>

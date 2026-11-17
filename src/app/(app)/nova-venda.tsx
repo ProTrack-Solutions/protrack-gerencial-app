@@ -179,9 +179,9 @@ export default function NewSaleScreen() {
               <FieldLabel>Data da venda</FieldLabel>
               <View
                 className="flex-row items-center gap-two rounded-two bg-surface px-three py-three"
-                style={{ borderWidth: 1, borderColor: "#E0E1E6" }}
+                style={{ borderWidth: 1, borderColor: "#DEE5ED" }}
               >
-                <Ionicons name="calendar-outline" size={18} color="#60646C" />
+                <Ionicons name="calendar-outline" size={18} color="#566176" />
                 <ThemedText themeColor="textSecondary">{formatLongDate(date)}</ThemedText>
               </View>
             </View>
@@ -203,7 +203,7 @@ export default function NewSaleScreen() {
                 className="items-center gap-one rounded-two px-three py-five"
                 style={{ borderWidth: 1, borderStyle: "dashed", borderColor: "#C9CCD3" }}
               >
-                <Ionicons name="cube-outline" size={22} color="#60646C" />
+                <Ionicons name="cube-outline" size={22} color="#566176" />
                 <ThemedText type="smallBold" className="mt-one">
                   Nenhum produto na venda
                 </ThemedText>
@@ -226,8 +226,8 @@ export default function NewSaleScreen() {
 
             <Pressable
               onPress={() => setPickerOpen(true)}
-              className="flex-row items-center justify-center gap-two rounded-two bg-[#EEF5FF] py-three active:opacity-70"
-              style={{ borderWidth: 1, borderColor: "#BFD8FB" }}
+              className="flex-row items-center justify-center gap-two rounded-two bg-[#EBF3FD] py-three active:opacity-70"
+              style={{ borderWidth: 1, borderColor: "#C4DDF8" }}
               accessibilityRole="button"
             >
               <Ionicons name="add" size={18} color="#1D4E9E" />
