@@ -58,6 +58,9 @@ export const MENU_SECTIONS: MenuSection[] = [
     ],
   },
   {
+    title: "Relatórios",
+    module: "reports",
+    items: [{ label: "Relatórios", href: "/relatorios", icon: "bar-chart-outline", activeIcon: "bar-chart" }],
     title: "Compras",
     module: "purchases",
     items: [
