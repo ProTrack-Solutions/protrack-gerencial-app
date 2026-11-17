@@ -393,7 +393,7 @@ export function ProductFormScreen({ product }: ProductFormScreenProps) {
                 <Ionicons
                   name="lock-closed-outline"
                   size={16}
-                  color="#60646C"
+                  color="#566176"
                 />
                 <ThemedText
                   type="small"

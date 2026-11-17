@@ -146,7 +146,7 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
             style={{ paddingTop: insets.top + Spacing.four }}
           >
             <View className="flex-row items-center justify-between">
-              <Logo width={64} />
+              <Logo width={132} />
               <Pressable
                 onPress={onClose}
                 hitSlop={8}
@@ -160,7 +160,7 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
 
             <View className="flex-row items-center gap-three rounded-three bg-white/[0.16] p-three">
               <View className="h-11 w-11 items-center justify-center rounded-full bg-white">
-                <ThemedText className="font-bold text-[#7C4FE0]">
+                <ThemedText className="font-bold text-night">
                   {initials(user?.name)}
                 </ThemedText>
               </View>
@@ -261,7 +261,7 @@ function MenuRow({
         </LinearGradient>
       ) : (
         <View className="h-9 w-9 items-center justify-center rounded-two bg-paper">
-          <Ionicons name={item.icon} size={18} color="#60646C" />
+          <Ionicons name={item.icon} size={18} color="#566176" />
         </View>
       )}
       <ThemedText
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     overflow: "hidden",
-    backgroundColor: "#F0F0F3",
+    backgroundColor: "#F1F5F9",
     borderTopRightRadius: 24,
     borderBottomRightRadius: 24,
   },

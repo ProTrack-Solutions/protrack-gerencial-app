@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { FeatureItem } from '@/components/login/feature-item';
+import { Starfield } from '@/components/login/starfield';
 import { ThemedText } from '@/components/themed-text';
 import { LinearGradient } from '@/components/ui/linear-gradient';
 import { Gradients, Spacing } from '@/constants/theme';
@@ -37,8 +38,10 @@ export function LoginHero() {
       colors={Gradients.brand}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
-      className="gap-four px-four pb-four rounded-b-four"
+      className="gap-four overflow-hidden px-four pb-four rounded-b-four"
       style={{ paddingTop: insets.top + Spacing.four }}>
+      {/* Mesmo céu estrelado do hero/login do protrack-web. */}
+      <Starfield />
       <View className="h-10 w-10 items-center justify-center rounded-two bg-white/[0.18]">
         <Ionicons name="trending-up" size={22} color="#ffffff" />
       </View>

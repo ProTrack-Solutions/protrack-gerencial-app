@@ -7,9 +7,9 @@ export function SearchInput(props: TextInputProps) {
       className="flex-row items-center gap-two rounded-two border-surface-selected bg-surface px-three py-two"
       style={{ borderWidth: StyleSheet.hairlineWidth }}
     >
-      <Ionicons name="search" size={18} color="#60646C" />
+      <Ionicons name="search" size={18} color="#566176" />
       <TextInput
-        placeholderTextColor="#60646C"
+        placeholderTextColor="#566176"
         autoCorrect={false}
         className="flex-1 text-base leading-[22px] text-ink"
         {...props}

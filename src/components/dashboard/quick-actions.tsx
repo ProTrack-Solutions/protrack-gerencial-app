@@ -50,7 +50,7 @@ export function QuickActions({ actions }: { actions: QuickAction[] }) {
 }
 
 export const QUICK_ACTION_COLORS = {
-  blue: { icon: BrandColor, backgroundClass: "bg-[#EAF2FE]" },
+  blue: { icon: BrandColor, backgroundClass: "bg-[#EBF3FD]" },
   purple: { icon: "#7C3AED", backgroundClass: "bg-[#F1ECFD]" },
   cyan: { icon: "#0E7490", backgroundClass: "bg-[#E2F6FB]" },
 };

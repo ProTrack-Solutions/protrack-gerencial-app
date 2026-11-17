@@ -110,7 +110,7 @@ function InfoLine({
 }) {
   return (
     <View className="flex-row items-center gap-two">
-      <Ionicons name={icon} size={14} color="#60646C" />
+      <Ionicons name={icon} size={14} color="#566176" />
       <ThemedText
         type="small"
         themeColor="textSecondary"

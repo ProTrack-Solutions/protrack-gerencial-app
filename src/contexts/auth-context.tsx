@@ -12,6 +12,7 @@ import {
 import { User } from "@/interfaces/auth.interface";
 import { setSessionExpiredHandler, tokenStorage } from "@/service/api.service";
 import { AUTH_AUDIENCE, GetMe, Login, Logout } from "@/service/auth.service";
+import { loginTransition } from "@/utils/login-transition";
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 
@@ -67,6 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await tokenStorage.clear();
       throw error;
     }
+    // O líquido cobre o login; a troca para o painel acontece por baixo dele.
+    await loginTransition.cover();
     setStatus("authenticated");
   }, []);
 

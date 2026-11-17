@@ -223,7 +223,7 @@ export default function ReceivablesScreen() {
               <Ionicons
                 name={error ? "cloud-offline-outline" : "wallet-outline"}
                 size={28}
-                color="#60646C"
+                color="#566176"
               />
               <ThemedText
                 type="small"

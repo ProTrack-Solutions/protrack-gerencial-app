@@ -198,7 +198,7 @@ export default function CustomersScreen() {
               <Ionicons
                 name={error ? "cloud-offline-outline" : "people-outline"}
                 size={28}
-                color="#60646C"
+                color="#566176"
               />
               <ThemedText
                 type="small"
