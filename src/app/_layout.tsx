@@ -3,6 +3,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 
+import { LoginTransition } from "@/components/login-transition";
 import { SplashOverlay } from "@/components/splash-overlay";
 import { AuthProvider, useAuth } from "@/contexts/auth-context";
 
@@ -37,6 +38,7 @@ function RootNavigator() {
         </Stack.Protected>
       </Stack>
       {/* A splash nativa fica visível até a sessão salva ser verificada. */}
+      <LoginTransition />
       {status !== "loading" && <SplashOverlay />}
     </>
   );
