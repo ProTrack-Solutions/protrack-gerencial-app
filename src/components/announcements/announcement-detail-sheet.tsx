@@ -20,7 +20,7 @@ function InfoBox({ icon, label, value }: { icon: keyof typeof Ionicons.glyphMap;
   return (
     <View className="flex-1 gap-half rounded-two bg-surface p-two">
       <View className="flex-row items-center gap-one">
-        <Ionicons name={icon} size={12} color="#60646C" />
+        <Ionicons name={icon} size={12} color="#566176" />
         <ThemedText type="small" themeColor="textSecondary" className="text-xs">
           {label}
         </ThemedText>
@@ -64,7 +64,7 @@ export function AnnouncementDetailSheet({ announcement, onClose, onDelete }: Pro
         <StatusPill label={status.label} tone={status.tone} dot />
         <View className="flex-1" />
         <Pressable onPress={share} hitSlop={8} accessibilityRole="button" accessibilityLabel="Compartilhar aviso" className="flex-row items-center gap-one active:opacity-70">
-          <Ionicons name="share-social-outline" size={16} color="#60646C" />
+          <Ionicons name="share-social-outline" size={16} color="#566176" />
           <ThemedText type="smallBold" themeColor="textSecondary" className="text-xs">
             Compartilhar
           </ThemedText>

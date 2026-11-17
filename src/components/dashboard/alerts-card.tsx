@@ -67,7 +67,7 @@ export function AlertsCard({ announcements, onOpen }: AlertsCardProps) {
                     {hint ? ` · ${hint}` : ""}
                   </ThemedText>
                 </View>
-                <Ionicons name="chevron-forward" size={16} color="#8B8D98" />
+                <Ionicons name="chevron-forward" size={16} color="#8A94A6" />
               </Pressable>
             );
           })}
