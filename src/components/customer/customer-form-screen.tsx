@@ -38,6 +38,7 @@ import {
   maskRg,
   parseBrDate,
 } from "@/utils/masks";
+import { haptics } from "@/utils/haptics";
 
 const GENDERS: { value: Gender; label: string }[] = [
   { value: "MALE", label: "Masculino" },
@@ -288,6 +289,7 @@ export function CustomerFormScreen({ customerId }: CustomerFormScreenProps) {
     const validation = validate();
     setErrors(validation);
     if (Object.keys(validation).length > 0) {
+      haptics.warning();
       Alert.alert("Campos obrigatórios", "Revise os campos destacados.");
       return;
     }
@@ -323,11 +325,13 @@ export function CustomerFormScreen({ customerId }: CustomerFormScreenProps) {
           ...payload,
           balance_due: original.balance_due ?? 0,
         });
+        haptics.success();
         Alert.alert("Cliente atualizado", "As alterações foram salvas.", [
           { text: "OK", onPress: leave },
         ]);
       } else {
         await CreateCustomer(payload);
+        haptics.success();
         Alert.alert(
           "Cliente cadastrado",
           "O cliente foi cadastrado com sucesso.",

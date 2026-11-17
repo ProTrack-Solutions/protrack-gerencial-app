@@ -44,6 +44,13 @@
           "cameraPermission": "Permita que o ProTrack acesse a câmera para ler códigos de barras dos produtos.",
           "recordAudioAndroid": false
         }
+      ],
+      "@react-native-community/datetimepicker",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Permita que o ProTrack use o Face ID para desbloquear o app."
+        }
       ]
     ],
     "experiments": {

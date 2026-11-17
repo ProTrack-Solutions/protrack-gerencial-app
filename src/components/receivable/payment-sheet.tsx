@@ -26,6 +26,7 @@ import {
   ListActivePaymentMethods,
 } from "@/service/receivable.service";
 import { formatCurrency } from "@/utils/format";
+import { haptics } from "@/utils/haptics";
 
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
@@ -135,6 +136,7 @@ export function PaymentSheet({
         amount_paid: amount,
         notes: notes.trim(),
       });
+      haptics.success();
       onClose();
       onDone();
       Alert.alert(
@@ -142,6 +144,7 @@ export function PaymentSheet({
         `Recebimento de ${formatCurrency(amount)} de ${customer.full_name} confirmado.`,
       );
     } catch (error) {
+      haptics.error();
       Alert.alert(
         "Erro ao dar baixa",
         getApiErrorMessage(error, "Não foi possível registrar o recebimento."),

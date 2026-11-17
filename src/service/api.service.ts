@@ -143,6 +143,23 @@ export function getApiErrorMessage(error: unknown, fallback: string): string {
   if (API_ERRORS[apiMessage]) return API_ERRORS[apiMessage];
   const pattern = API_ERROR_PATTERNS.find(([key]) => apiMessage.includes(key));
   if (pattern) return pattern[1];
-  if (status === 403) return "Seu usuário não tem acesso a este módulo.";
+  if (status === 403 && !isUserFacing(apiMessage)) return "Seu usuário não tem acesso a este módulo.";
+  if (isUserFacing(apiMessage)) return toSentence(apiMessage);
   return fallback;
+}
+
+// Regras de negócio da API já vêm em português ("o caixa de destino está fechado").
+// Mensagens técnicas ("database error", "pq: ...") continuam caindo no fallback.
+const PT_MARKERS = /[áàâãéêíóôõúç]|\b(caixa|venda|cliente|produto|pedido|fornecedor|estoque|valor|escolha|informe|parcela|compra|modelo|plano|assinatura|motivo|quantidade|recebimento)\b/i;
+const TECHNICAL = /^(pq:|sql|database|invalid|unauthorized|unexpected|service error|no rows)/i;
+
+function isUserFacing(message: string) {
+  return Boolean(message) && PT_MARKERS.test(message) && !TECHNICAL.test(message);
+}
+
+/** "o caixa está fechado" -> "O caixa está fechado." (e "computador" vira "aparelho"). */
+function toSentence(message: string) {
+  const text = message.trim().replace(/este computador/g, "este aparelho");
+  const sentence = text.charAt(0).toUpperCase() + text.slice(1);
+  return /[.!?]$/.test(sentence) ? sentence : `${sentence}.`;
 }

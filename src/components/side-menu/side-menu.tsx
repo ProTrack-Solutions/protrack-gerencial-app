@@ -160,6 +160,7 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
 
             <View className="flex-row items-center gap-three rounded-three bg-white/[0.16] p-three">
               <View className="h-11 w-11 items-center justify-center rounded-full bg-white">
+
                 <ThemedText className="font-bold text-night">
                   {initials(user?.name)}
                 </ThemedText>
@@ -205,6 +206,19 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
             className="gap-two border-t-hairline border-line px-three pt-three"
             style={{ paddingBottom: insets.bottom + Spacing.three }}
           >
+            <Pressable
+              onPress={() => navigate("/configuracoes")}
+              accessibilityRole="button"
+              accessibilityState={{ selected: pathname === "/configuracoes" }}
+              className="flex-row items-center gap-three rounded-three p-two active:bg-paper/70"
+            >
+              <View className="h-9 w-9 items-center justify-center rounded-two bg-paper">
+                <Ionicons name="settings-outline" size={18} color="#566176" />
+              </View>
+              <ThemedText type="smallBold" className={pathname === "/configuracoes" ? "text-brand" : ""}>
+                Configurações
+              </ThemedText>
+            </Pressable>
             <Pressable
               onPress={confirmSignOut}
               accessibilityRole="button"
