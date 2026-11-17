@@ -210,7 +210,7 @@ export function TransferSheet({ visible, targets, expectedCash, onClose, onDone 
                 selected ? "border-brand bg-brand-soft" : "border-line bg-paper"
               }`}
             >
-              <Ionicons name="desktop-outline" size={18} color={selected ? "#3c87f7" : "#60646C"} />
+              <Ionicons name="desktop-outline" size={18} color={selected ? "#4896EA" : "#566176"} />
               <View className="flex-1">
                 <ThemedText type="smallBold" className={selected ? "text-brand" : ""}>
                   {t.name}
@@ -219,7 +219,7 @@ export function TransferSheet({ visible, targets, expectedCash, onClose, onDone 
                   Aberto por {t.open_session?.opened_by_name}
                 </ThemedText>
               </View>
-              {selected && <Ionicons name="checkmark-circle" size={20} color="#3c87f7" />}
+              {selected && <Ionicons name="checkmark-circle" size={20} color="#4896EA" />}
             </Pressable>
           );
         })}

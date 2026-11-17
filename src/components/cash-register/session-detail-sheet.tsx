@@ -19,7 +19,7 @@ function Section({ title, icon, children }: { title: string; icon: keyof typeof 
   return (
     <View className="gap-three">
       <View className="flex-row items-center gap-two">
-        <Ionicons name={icon} size={16} color="#3c87f7" />
+        <Ionicons name={icon} size={16} color="#4896EA" />
         <ThemedText type="smallBold">{title}</ThemedText>
       </View>
       {children}
@@ -182,7 +182,7 @@ export function SessionDetailSheet({ id, initial, onClose }: SessionDetailSheetP
             accessibilityRole="button"
             className="flex-row items-center justify-center gap-two rounded-three border border-brand-line bg-brand-soft py-three active:opacity-70"
           >
-            <Ionicons name="share-outline" size={18} color="#3c87f7" />
+            <Ionicons name="share-outline" size={18} color="#4896EA" />
             <ThemedText type="smallBold" className="text-brand">
               Compartilhar relatório em PDF
             </ThemedText>

@@ -55,7 +55,7 @@ export function OpenRegisterView({ register, registers, detail, onChange, onClos
   }[] = [
     { label: "Suprimento", icon: "arrow-up-circle-outline", color: "#2F855A", bg: "bg-emerald-50", onPress: () => setMovement("supply") },
     { label: "Sangria", icon: "arrow-down-circle-outline", color: "#DC2626", bg: "bg-rose-50", onPress: () => setMovement("withdrawal") },
-    { label: "Transferir", icon: "swap-horizontal", color: "#3c87f7", bg: "bg-[#EAF2FE]", onPress: () => setTransferring(true), hidden: targets.length === 0 },
+    { label: "Transferir", icon: "swap-horizontal", color: "#4896EA", bg: "bg-[#EBF3FD]", onPress: () => setTransferring(true), hidden: targets.length === 0 },
     { label: "Nova venda", icon: "cart-outline", color: "#7C3AED", bg: "bg-[#F1ECFD]", onPress: () => router.push("/nova-venda") },
   ];
 

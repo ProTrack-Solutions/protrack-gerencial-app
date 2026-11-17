@@ -49,7 +49,7 @@ export function RegistersBar({ registers, selectedId, needsChoice, onChoose }: R
             >
               <View className="flex-row items-center gap-two">
                 <View className={`h-8 w-8 items-center justify-center rounded-two ${mine ? "bg-brand" : "bg-surface"}`}>
-                  <Ionicons name="desktop-outline" size={16} color={mine ? "#ffffff" : "#60646C"} />
+                  <Ionicons name="desktop-outline" size={16} color={mine ? "#ffffff" : "#566176"} />
                 </View>
                 <ThemedText type="smallBold" className="flex-1" numberOfLines={1}>
                   {r.name}

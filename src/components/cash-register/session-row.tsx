@@ -37,7 +37,7 @@ export function SessionRow({ session: s, showRegister, onPress }: SessionRowProp
           </ThemedText>
         </View>
         {open ? <StatusPill label="Aberto" tone="brand" dot /> : <DifferenceBadge value={s.difference ?? 0} />}
-        <Ionicons name="chevron-forward" size={18} color="#8B8D98" />
+        <Ionicons name="chevron-forward" size={18} color="#8A94A6" />
       </View>
       {!open && (
         <View className="flex-row gap-two">

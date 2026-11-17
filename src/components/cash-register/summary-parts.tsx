@@ -19,7 +19,7 @@ export function DifferenceBadge({ value }: { value: number }) {
 export function SummaryEmpty({ text }: { text: string }) {
   return (
     <View className="items-center gap-two py-four">
-      <Ionicons name="file-tray-outline" size={24} color="#8B8D98" />
+      <Ionicons name="file-tray-outline" size={24} color="#8A94A6" />
       <ThemedText type="small" themeColor="textSecondary" className="text-center">
         {text}
       </ThemedText>
@@ -165,7 +165,7 @@ export function OperatorBreakdown({ summary }: { summary: CashSummary }) {
               </ThemedText>
               <ThemedText type="smallBold">{formatCurrency(total)}</ThemedText>
             </View>
-            <Bar ratio={total / max} color="#3c87f7" />
+            <Bar ratio={total / max} color="#4896EA" />
             <ThemedText type="small" themeColor="textSecondary" className="text-xs">
               {plural(o.sales_count, "venda", "vendas")} · {formatCurrency(o.sales_total)}
               {o.receipts_total > 0 ? ` · ${formatCurrency(o.receipts_total)} em parcelas` : ""}
