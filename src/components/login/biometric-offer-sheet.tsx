@@ -58,7 +58,7 @@ export function BiometricOfferSheet() {
       <Pressable className="flex-1 bg-black/40" onPress={busy ? undefined : close} accessibilityLabel="Fechar" />
       <View className="items-center gap-four rounded-t-four bg-paper px-five pt-five" style={{ paddingBottom: insets.bottom + 24 }}>
         <View className="h-20 w-20 items-center justify-center rounded-full bg-brand-soft">
-          <Ionicons name={icon} size={40} color="#7C4FE0" />
+          <Ionicons name={icon} size={40} color="#4896EA" />
         </View>
         <View className="items-center gap-one">
           <ThemedText className="text-center text-xl font-bold">Entrar com {label}?</ThemedText>
@@ -70,7 +70,7 @@ export function BiometricOfferSheet() {
         <View className="w-full gap-two">
           {BENEFITS.map((b) => (
             <View key={b.text} className="flex-row items-center gap-three rounded-two bg-surface p-three">
-              <Ionicons name={b.icon} size={18} color="#7C4FE0" />
+              <Ionicons name={b.icon} size={18} color="#4896EA" />
               <ThemedText type="small" className="flex-1">
                 {b.text}
               </ThemedText>

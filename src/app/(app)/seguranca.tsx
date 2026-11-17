@@ -41,7 +41,7 @@ function PasswordInput({ value, onChangeText, placeholder, error }: { value: str
       error={error ? "x" : undefined}
       suffix={
         <Pressable onPress={() => setVisible((v) => !v)} hitSlop={8} accessibilityRole="button" accessibilityLabel={visible ? "Esconder senha" : "Mostrar senha"}>
-          <Ionicons name={visible ? "eye-off-outline" : "eye-outline"} size={20} color="#60646C" />
+          <Ionicons name={visible ? "eye-off-outline" : "eye-outline"} size={20} color="#566176" />
         </Pressable>
       }
     />
@@ -180,7 +180,7 @@ export default function SecurityScreen() {
               value={biometricOn}
               onValueChange={toggleBiometricLogin}
               disabled={enabling || (!biometric.support.canStoreCredentials && !biometricOn)}
-              trackColor={{ true: BrandColor, false: "#E0E1E6" }}
+              trackColor={{ true: BrandColor, false: "#DEE5ED" }}
               thumbColor="#ffffff"
               accessibilityLabel="Entrar com biometria"
             />
@@ -198,7 +198,7 @@ export default function SecurityScreen() {
               value={lock.enabled}
               onValueChange={toggleLock}
               disabled={toggling || (!lock.support.available && !lock.enabled)}
-              trackColor={{ true: BrandColor, false: "#E0E1E6" }}
+              trackColor={{ true: BrandColor, false: "#DEE5ED" }}
               thumbColor="#ffffff"
               accessibilityLabel="Desbloqueio por biometria"
             />
@@ -218,7 +218,7 @@ export default function SecurityScreen() {
                 const ok = rule.test(password);
                 return (
                   <View key={rule.label} className="flex-row items-center gap-two">
-                    <Ionicons name={ok ? "checkmark-circle" : "ellipse-outline"} size={14} color={ok ? "#2F855A" : "#8B8D98"} />
+                    <Ionicons name={ok ? "checkmark-circle" : "ellipse-outline"} size={14} color={ok ? "#2F855A" : "#8A94A6"} />
                     <ThemedText type="small" className={`text-xs ${ok ? "text-success" : "text-muted"}`}>
                       {rule.label}
                     </ThemedText>

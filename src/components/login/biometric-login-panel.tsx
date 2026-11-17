@@ -53,7 +53,7 @@ export function BiometricLoginPanel({ profile, support, loading, error, onBiomet
         accessibilityLabel={`Entrar com ${support.label}`}
         className="h-24 w-24 items-center justify-center rounded-full border-2 border-brand-line bg-brand-soft active:opacity-70"
       >
-        <Ionicons name={icon} size={48} color="#7C4FE0" />
+        <Ionicons name={icon} size={48} color="#4896EA" />
       </Pressable>
 
       {error && (

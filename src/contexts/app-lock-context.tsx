@@ -114,8 +114,8 @@ export function AppLockProvider({ children }: { children: ReactNode }) {
             accessibilityRole="button"
             className="flex-row items-center gap-two rounded-full bg-white px-five py-three active:opacity-80"
           >
-            <Ionicons name="finger-print" size={22} color="#7C4FE0" />
-            <ThemedText type="smallBold" className="text-[#7C4FE0]">
+            <Ionicons name="finger-print" size={22} color="#4896EA" />
+            <ThemedText type="smallBold" className="text-[#4896EA]">
               Desbloquear
             </ThemedText>
           </Pressable>

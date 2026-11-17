@@ -221,7 +221,7 @@ export function LoginForm() {
           accessibilityRole="button"
           className="flex-row items-center justify-center gap-two py-one"
         >
-          <Ionicons name={biometric.support.face ? "scan-outline" : "finger-print"} size={18} color="#7C4FE0" />
+          <Ionicons name={biometric.support.face ? "scan-outline" : "finger-print"} size={18} color="#4896EA" />
           <ThemedText type="linkPrimary">Entrar com {biometric.support.label}</ThemedText>
         </Pressable>
       )}
