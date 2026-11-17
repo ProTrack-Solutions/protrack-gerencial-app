@@ -51,9 +51,8 @@ export const GetDashboard = async (): Promise<DashboardData> => {
     get<{ inventory_turnover: number }>("/sales/stock-turnover"),
     get<{ bills_summary: BillsPayableSummary }>("/bills-payable/summary"),
     get<CashFlowPoint[] | null>("/cash-flow"),
-    get<{ data: Announcement[] | null }>("/announcements", {
-      headers: { Page: 1, PerPage: 20 },
-    }),
+    // Mesmo card do web: só os avisos no ar hoje; o quadro completo fica em /avisos.
+    get<Announcement[] | null>("/announcements/today"),
   ]);
 
   return {
@@ -70,6 +69,6 @@ export const GetDashboard = async (): Promise<DashboardData> => {
     inventoryTurnover: valueOr(inventoryTurnover, { inventory_turnover: 0 }).inventory_turnover ?? 0,
     billsPayable: valueOr(billsPayable, { bills_summary: EMPTY_BILLS }).bills_summary ?? EMPTY_BILLS,
     cashFlow: valueOr(cashFlow, null) ?? [],
-    announcements: valueOr(announcements, { data: null }).data ?? [],
+    announcements: valueOr(announcements, null) ?? [],
   };
 };
