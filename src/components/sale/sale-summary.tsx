@@ -40,7 +40,7 @@ export function SaleSummary({
       )}
       <View
         className="mt-one flex-row items-center justify-between pt-three"
-        style={{ borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#E0E1E6" }}
+        style={{ borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#DEE5ED" }}
       >
         <ThemedText className="text-lg font-bold">Total:</ThemedText>
         <ThemedText className="text-2xl font-bold" style={{ color: BrandColor }}>{formatCurrency(total)}</ThemedText>

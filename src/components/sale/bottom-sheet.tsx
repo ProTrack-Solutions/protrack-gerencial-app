@@ -43,7 +43,7 @@ export function BottomSheet({ visible, title, onClose, children }: BottomSheetPr
             accessibilityRole="button"
             accessibilityLabel="Fechar"
           >
-            <Ionicons name="close" size={22} color="#60646C" />
+            <Ionicons name="close" size={22} color="#566176" />
           </Pressable>
         </View>
         {children}

@@ -32,9 +32,9 @@ export function TextField({
       <View
         className="flex-row items-center gap-two rounded-two border-surface-selected bg-surface px-three py-two"
         style={{ borderWidth: StyleSheet.hairlineWidth }}>
-        <Ionicons name={icon} size={18} color="#60646C" />
+        <Ionicons name={icon} size={18} color="#566176" />
         <TextInput
-          placeholderTextColor="#60646C"
+          placeholderTextColor="#566176"
           className={['flex-1 text-base leading-[22px] text-ink', className]
             .filter(Boolean)
             .join(' ')}
@@ -47,10 +47,10 @@ export function TextField({
               hitSlop={8}
               accessibilityRole="button"
               accessibilityLabel={trailingIconAccessibilityLabel}>
-              <Ionicons name={trailingIcon} size={18} color="#60646C" />
+              <Ionicons name={trailingIcon} size={18} color="#566176" />
             </Pressable>
           ) : (
-            <Ionicons name={trailingIcon} size={18} color="#60646C" />
+            <Ionicons name={trailingIcon} size={18} color="#566176" />
           ))}
       </View>
     </View>

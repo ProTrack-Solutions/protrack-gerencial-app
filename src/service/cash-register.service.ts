@@ -1,0 +1,108 @@
+import {
+  CashRegister,
+  CashSessionDetail,
+  CashTransferAction,
+  CreateCashTransferParams,
+  CloseCashSessionParams,
+  CreateCashMovementParams,
+  CurrentCashSessionResponse,
+  ListCashSessionsResponse,
+  OpenCashSessionParams,
+  SaveCashRegisterParams,
+} from "@/interfaces/cash-register.interface";
+import { apiClient as api } from "./api.service";
+
+export const GetCurrentCashSession = async (signal?: AbortSignal) => {
+  const response = await api.get<CurrentCashSessionResponse>(
+    "/cash-register/current",
+    { signal },
+  );
+  return response.data;
+};
+
+export const OpenCashSession = async (params: OpenCashSessionParams) => {
+  const response = await api.post<CashSessionDetail>(
+    "/cash-register/open",
+    params,
+  );
+  return response.data;
+};
+
+export const CreateCashMovement = async (params: CreateCashMovementParams) => {
+  const response = await api.post<CashSessionDetail>(
+    "/cash-register/movements",
+    params,
+  );
+  return response.data;
+};
+
+export const CloseCashSession = async (params: CloseCashSessionParams) => {
+  const response = await api.post<CashSessionDetail>(
+    "/cash-register/close",
+    params,
+  );
+  return response.data;
+};
+
+export const ListCashSessions = async (
+  page: number,
+  perPage = 10,
+  registerId?: string,
+  signal?: AbortSignal,
+) => {
+  const response = await api.get<ListCashSessionsResponse>(
+    "/cash-register/sessions",
+    { params: { page, per_page: perPage, register_id: registerId }, signal },
+  );
+  return response.data;
+};
+
+export const GetCashSession = async (id: string, signal?: AbortSignal) => {
+  const response = await api.get<CashSessionDetail>(
+    `/cash-register/sessions/${id}`,
+    { signal },
+  );
+  return response.data;
+};
+
+export const ListCashRegisters = async (signal?: AbortSignal) => {
+  const response = await api.get<CashRegister[] | null>("/cash-register/registers", { signal });
+  return response.data ?? [];
+};
+
+export const CreateCashRegister = async (params: SaveCashRegisterParams) => {
+  const response = await api.post<CashRegister>(
+    "/cash-register/registers",
+    params,
+  );
+  return response.data;
+};
+
+export const UpdateCashRegister = async (
+  id: string,
+  params: SaveCashRegisterParams,
+) => {
+  const response = await api.put<CashRegister>(
+    `/cash-register/registers/${id}`,
+    params,
+  );
+  return response.data;
+};
+
+export const CreateCashTransfer = async (params: CreateCashTransferParams) => {
+  const response = await api.post<CashSessionDetail>(
+    "/cash-register/transfers",
+    params,
+  );
+  return response.data;
+};
+
+export const ResolveCashTransfer = async (
+  id: string,
+  action: CashTransferAction,
+) => {
+  const response = await api.post<CashSessionDetail>(
+    `/cash-register/transfers/${id}/${action}`,
+  );
+  return response.data;
+};
