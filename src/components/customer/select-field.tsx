@@ -39,7 +39,7 @@ export function SelectField<T extends string>({
         >
           {selected?.label ?? placeholder}
         </ThemedText>
-        <Ionicons name="chevron-down" size={18} color="#60646C" />
+        <Ionicons name="chevron-down" size={18} color="#566176" />
       </Pressable>
 
       <BottomSheet visible={open} title={title} onClose={() => setOpen(false)}>

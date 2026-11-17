@@ -67,7 +67,7 @@ export function BalanceCards({ totalReceivable, totalPayable, cashBalance }: Bal
           value={totalPayable}
           colorClass="text-danger"
           icon="card-outline"
-          iconColor="#60646C"
+          iconColor="#566176"
         />
         <MiniCard
           label="A Receber"

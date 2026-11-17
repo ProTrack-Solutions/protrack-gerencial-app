@@ -23,7 +23,7 @@ export function SaleFooter({ total, paymentLabel, submitting, onCancel, onSubmit
       style={{
         paddingBottom: insets.bottom + Spacing.three,
         borderTopWidth: StyleSheet.hairlineWidth,
-        borderColor: "#E0E1E6",
+        borderColor: "#DEE5ED",
       }}
     >
       <View className="flex-row items-end justify-between">
@@ -42,7 +42,7 @@ export function SaleFooter({ total, paymentLabel, submitting, onCancel, onSubmit
         <Pressable
           onPress={onCancel}
           className="items-center justify-center rounded-two bg-paper px-four active:bg-surface"
-          style={{ borderWidth: 1, borderColor: "#E0E1E6" }}
+          style={{ borderWidth: 1, borderColor: "#DEE5ED" }}
           accessibilityRole="button"
         >
           <ThemedText type="smallBold">Cancelar</ThemedText>
