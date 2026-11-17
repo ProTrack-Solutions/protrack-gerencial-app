@@ -146,7 +146,7 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
             style={{ paddingTop: insets.top + Spacing.four }}
           >
             <View className="flex-row items-center justify-between">
-              <Logo width={64} />
+              <Logo width={132} />
               <Pressable
                 onPress={onClose}
                 hitSlop={8}
@@ -160,7 +160,8 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
 
             <View className="flex-row items-center gap-three rounded-three bg-white/[0.16] p-three">
               <View className="h-11 w-11 items-center justify-center rounded-full bg-white">
-                <ThemedText className="font-bold text-[#4896EA]">
+
+                <ThemedText className="font-bold text-night">
                   {initials(user?.name)}
                 </ThemedText>
               </View>

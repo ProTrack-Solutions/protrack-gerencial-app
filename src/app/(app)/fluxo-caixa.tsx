@@ -70,7 +70,7 @@ export default function CashFlowScreen() {
         <CashFlowSkeleton />
       ) : error && !data ? (
         <View className="flex-1 items-center justify-center gap-two p-four">
-          <Ionicons name="cloud-offline-outline" size={28} color="#60646C" />
+          <Ionicons name="cloud-offline-outline" size={28} color="#566176" />
           <ThemedText type="small" className="text-center text-danger">
             {error}
           </ThemedText>

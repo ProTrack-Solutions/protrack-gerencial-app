@@ -290,7 +290,7 @@ export function CustomerDetailSheet({
               <Ionicons
                 name="information-circle-outline"
                 size={18}
-                color="#60646C"
+                color="#566176"
               />
               <ThemedText
                 type="small"

@@ -46,7 +46,7 @@ type SkeletonProps = ViewProps & {
 };
 
 /** Mesmo valor do token `surface-selected` (o `Animated.View` recebe cor por `style`). */
-const SKELETON_COLOR = "#E0E1E6";
+const SKELETON_COLOR = "#DEE5ED";
 
 /**
  * Bloco cinza pulsando, no lugar do conteúdo enquanto ele carrega.

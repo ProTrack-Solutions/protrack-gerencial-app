@@ -9,11 +9,11 @@ import { Platform } from 'react-native';
 
 export const Colors = {
   light: {
-    text: '#000000',
+    text: '#192134',
     background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    backgroundElement: '#F1F5F9',
+    backgroundSelected: '#DEE5ED',
+    textSecondary: '#566176',
   },
   dark: {
     text: '#ffffff',
@@ -65,12 +65,21 @@ export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
 export const MaxContentWidth = 800;
 
 /**
- * Brand gradients, kept separate from `Colors` because they are used with
- * `expo-linear-gradient` (an array of stops) instead of a single color value.
+ * Paleta do landing do protrack-web (landing-theme.css). Gradientes ficam
+ * fora de `Colors` porque o `expo-linear-gradient` recebe uma lista de cores.
  */
 export const Gradients = {
-  brand: ['#4F63F0', '#7C4FE0', '#B34FE0'] as const,
-  primary: ['#3c87f7', '#5BA8F5'] as const,
+  /** "Noite" do hero/login do web: cabeçalhos, menu lateral, splash. */
+  brand: ['#090E20', '#0F1933', '#19294D'] as const,
+  /** Botões principais: azul-marinho como o "Entrar" do web. */
+  primary: ['#0F1933', '#19294D'] as const,
+  /** Azul (Estoque) para verde (Financeiro): destaques da marca. */
+  accent: ['#5FA3EC', '#39C68B'] as const,
 } as const;
 
-export const BrandColor = '#3c87f7';
+/** Azul da marca (--primary do landing: hsl(211 79% 60%)). */
+export const BrandColor = '#4896EA';
+/** Verde da marca (--accent-green: hsl(155 55% 45%)). */
+export const BrandGreen = '#34B27D';
+/** Fundo "noite" (--night: hsl(226 58% 8%)). */
+export const NightColor = '#090E20';
