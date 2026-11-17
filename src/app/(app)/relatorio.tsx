@@ -97,7 +97,7 @@ function RowCard({ row, columns }: { row: ReportCell[]; columns: ReportColumn[] 
         <ThemedText type="smallBold" className="flex-1" numberOfLines={expanded ? undefined : 2}>
           {formatCell(row[titleIndex], columns[titleIndex].type) || "—"}
         </ThemedText>
-        {canExpand && <Ionicons name={expanded ? "chevron-up" : "chevron-down"} size={16} color="#8B8D98" />}
+        {canExpand && <Ionicons name={expanded ? "chevron-up" : "chevron-down"} size={16} color="#8A94A6" />}
       </View>
       <View className="flex-row flex-wrap gap-y-two">
         {visible.map(({ column, value }) => (
@@ -161,7 +161,7 @@ function SortSheet({
                 }}
                 className={`flex-row items-center gap-two rounded-two border p-three ${selected ? "border-brand bg-brand-soft" : "border-line"}`}
               >
-                <Ionicons name={desc ? "arrow-down" : "arrow-up"} size={16} color={selected ? BrandColor : "#60646C"} />
+                <Ionicons name={desc ? "arrow-down" : "arrow-up"} size={16} color={selected ? BrandColor : "#566176"} />
                 <ThemedText type="smallBold" className={`flex-1 ${selected ? "text-brand" : ""}`}>
                   {c.label}
                 </ThemedText>

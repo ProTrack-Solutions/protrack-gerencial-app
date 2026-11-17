@@ -43,7 +43,7 @@ export default function ReportsScreen() {
                       {report.description}
                     </ThemedText>
                   </View>
-                  <Ionicons name="chevron-forward" size={18} color="#8B8D98" />
+                  <Ionicons name="chevron-forward" size={18} color="#8A94A6" />
                 </Pressable>
               ))}
             </View>

@@ -18,11 +18,11 @@ export const REPORT_GROUPS: { label: string; reports: ReportDefinition[] }[] = [
   {
     label: "Vendas",
     reports: [
-      { type: "sales", title: "Vendas no período", description: "Todas as vendas com cliente, vendedor e lucro", icon: "cart-outline", color: "#3c87f7", usesPeriod: true },
-      { type: "sales_by_day", title: "Faturamento por dia", description: "Vendas, ticket médio e lucro dia a dia", icon: "calendar-outline", color: "#3c87f7", usesPeriod: true },
-      { type: "sales_by_payment_method", title: "Por forma de pagamento", description: "Dinheiro, Pix, cartão e a prazo", icon: "card-outline", color: "#3c87f7", usesPeriod: true },
-      { type: "sales_by_seller", title: "Por vendedor", description: "Desempenho de cada vendedor, base para comissão", icon: "trophy-outline", color: "#3c87f7", usesPeriod: true },
-      { type: "sales_by_customer", title: "Por cliente", description: "Clientes que mais compraram", icon: "person-outline", color: "#3c87f7", usesPeriod: true },
+      { type: "sales", title: "Vendas no período", description: "Todas as vendas com cliente, vendedor e lucro", icon: "cart-outline", color: "#4896EA", usesPeriod: true },
+      { type: "sales_by_day", title: "Faturamento por dia", description: "Vendas, ticket médio e lucro dia a dia", icon: "calendar-outline", color: "#4896EA", usesPeriod: true },
+      { type: "sales_by_payment_method", title: "Por forma de pagamento", description: "Dinheiro, Pix, cartão e a prazo", icon: "card-outline", color: "#4896EA", usesPeriod: true },
+      { type: "sales_by_seller", title: "Por vendedor", description: "Desempenho de cada vendedor, base para comissão", icon: "trophy-outline", color: "#4896EA", usesPeriod: true },
+      { type: "sales_by_customer", title: "Por cliente", description: "Clientes que mais compraram", icon: "person-outline", color: "#4896EA", usesPeriod: true },
     ],
   },
   {
