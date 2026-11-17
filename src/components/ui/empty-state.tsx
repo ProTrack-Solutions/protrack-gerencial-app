@@ -15,7 +15,7 @@ type EmptyStateProps = {
 export function EmptyState({ icon, message, error, onRetry }: EmptyStateProps) {
   return (
     <View className="items-center gap-two py-five">
-      <Ionicons name={error ? "cloud-offline-outline" : icon} size={28} color="#60646C" />
+      <Ionicons name={error ? "cloud-offline-outline" : icon} size={28} color="#566176" />
       <ThemedText
         type="small"
         themeColor="textSecondary"

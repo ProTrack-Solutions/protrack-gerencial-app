@@ -82,7 +82,7 @@ export function DateField({
           error ? "border-danger" : "border-line"
         }`}
       >
-        <Ionicons name="calendar-outline" size={18} color={value ? BrandColor : "#8B8D98"} />
+        <Ionicons name="calendar-outline" size={18} color={value ? BrandColor : "#8A94A6"} />
         <ThemedText className={`flex-1 text-base ${value ? "text-ink" : "text-placeholder"}`}>
           {value ? formatIsoDate(value) : placeholder}
         </ThemedText>
@@ -93,7 +93,7 @@ export function DateField({
             accessibilityRole="button"
             accessibilityLabel="Limpar data"
           >
-            <Ionicons name="close-circle" size={18} color="#8B8D98" />
+            <Ionicons name="close-circle" size={18} color="#8A94A6" />
           </Pressable>
         ) : null}
       </Pressable>

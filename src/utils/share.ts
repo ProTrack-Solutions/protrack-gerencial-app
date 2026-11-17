@@ -27,20 +27,20 @@ export type PdfDocument = {
 const STYLE = `
   * { box-sizing: border-box; }
   body { font-family: -apple-system, Roboto, Helvetica, Arial, sans-serif; color: #111; margin: 32px; font-size: 12px; }
-  header { border-bottom: 3px solid #4F63F0; padding-bottom: 12px; margin-bottom: 20px; }
+  header { border-bottom: 3px solid #4896EA; padding-bottom: 12px; margin-bottom: 20px; }
   h1 { font-size: 22px; margin: 0; }
-  .sub { color: #60646C; margin-top: 4px; }
-  .brand { color: #4F63F0; font-weight: 700; font-size: 11px; letter-spacing: 1px; }
+  .sub { color: #566176; margin-top: 4px; }
+  .brand { color: #4896EA; font-weight: 700; font-size: 11px; letter-spacing: 1px; }
   .hl { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-  .hl div { flex: 1; min-width: 120px; background: #EEF5FF; border-radius: 10px; padding: 10px 12px; }
-  .hl span { display: block; color: #60646C; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
+  .hl div { flex: 1; min-width: 120px; background: #EBF3FD; border-radius: 10px; padding: 10px 12px; }
+  .hl span { display: block; color: #566176; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
   .hl b { font-size: 16px; }
   h2 { font-size: 14px; margin: 22px 0 8px; }
   table { width: 100%; border-collapse: collapse; }
-  th { text-align: left; background: #F0F0F3; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; padding: 6px 8px; }
-  td { padding: 6px 8px; border-bottom: 1px solid #E0E1E6; }
-  .lines div { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #E0E1E6; }
-  footer { margin-top: 28px; color: #8B8D98; font-size: 10px; text-align: center; }
+  th { text-align: left; background: #F1F5F9; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; padding: 6px 8px; }
+  td { padding: 6px 8px; border-bottom: 1px solid #DEE5ED; }
+  .lines div { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #DEE5ED; }
+  footer { margin-top: 28px; color: #8A94A6; font-size: 10px; text-align: center; }
 `;
 
 export function buildPdfHtml(doc: PdfDocument) {
