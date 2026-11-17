@@ -44,7 +44,7 @@ function maskDocument(value: string) {
 function ContactButtons({ vendor }: { vendor: VendorRecord }) {
   const phone = vendor.phone.replace(/\D/g, "");
   const buttons = [
-    phone && { icon: "call-outline" as const, label: "Ligar", color: "#3c87f7", url: `tel:${phone}` },
+    phone && { icon: "call-outline" as const, label: "Ligar", color: "#4896EA", url: `tel:${phone}` },
     phone && { icon: "logo-whatsapp" as const, label: "WhatsApp", color: "#047857", url: `https://wa.me/55${phone}` },
     vendor.email && { icon: "mail-outline" as const, label: "E-mail", color: "#7C3AED", url: `mailto:${vendor.email}` },
   ].filter(Boolean) as { icon: keyof typeof Ionicons.glyphMap; label: string; color: string; url: string }[];

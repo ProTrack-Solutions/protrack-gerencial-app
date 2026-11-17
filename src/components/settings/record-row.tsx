@@ -53,7 +53,7 @@ export function RecordRow({ title, subtitle, icon = "ellipse", color = BrandColo
               haptics.select();
               onToggle(value);
             }}
-            trackColor={{ true: BrandColor, false: "#E0E1E6" }}
+            trackColor={{ true: BrandColor, false: "#DEE5ED" }}
             thumbColor="#ffffff"
             accessibilityLabel={`${title} ${active ? "ativo" : "inativo"}`}
           />
