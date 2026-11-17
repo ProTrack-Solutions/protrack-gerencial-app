@@ -281,7 +281,7 @@ function ReceiveForm({ order }: { order: PurchaseOrderDetail }) {
                   accessibilityRole="button"
                   accessibilityLabel="Ler chave da nota pela câmera"
                 >
-                  <Ionicons name="barcode-outline" size={22} color="#3c87f7" />
+                  <Ionicons name="barcode-outline" size={22} color="#4896EA" />
                 </Pressable>
               }
             />
@@ -421,7 +421,7 @@ function ReceiveForm({ order }: { order: PurchaseOrderDetail }) {
 
       <View
         className="gap-three bg-paper px-four pt-three"
-        style={{ paddingBottom: insets.bottom + Spacing.three, borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#E0E1E6" }}
+        style={{ paddingBottom: insets.bottom + Spacing.three, borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#DEE5ED" }}
       >
         <View className="flex-row items-end justify-between">
           <View>

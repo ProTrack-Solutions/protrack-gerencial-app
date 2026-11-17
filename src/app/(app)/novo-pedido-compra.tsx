@@ -269,7 +269,7 @@ function OrderForm({ order }: { order?: PurchaseOrderDetail }) {
               accessibilityRole="button"
               className="flex-1 flex-row items-center justify-center gap-two rounded-two border border-brand-line bg-brand-soft py-three active:opacity-70"
             >
-              <Ionicons name="search" size={16} color="#3c87f7" />
+              <Ionicons name="search" size={16} color="#4896EA" />
               <ThemedText type="smallBold" className="text-brand">
                 Buscar produto
               </ThemedText>
@@ -298,7 +298,7 @@ function OrderForm({ order }: { order?: PurchaseOrderDetail }) {
               />
             ) : (
               <View className="flex-row items-start gap-two">
-                <Ionicons name="mail-outline" size={16} color="#60646C" />
+                <Ionicons name="mail-outline" size={16} color="#566176" />
                 <ThemedText type="small" themeColor="textSecondary" className="flex-1 text-xs">
                   O fornecedor não tem e-mail cadastrado. Depois de salvar, você pode compartilhar o PDF do pedido pelo WhatsApp.
                 </ThemedText>
@@ -310,7 +310,7 @@ function OrderForm({ order }: { order?: PurchaseOrderDetail }) {
 
       <View
         className="gap-three bg-paper px-four pt-three"
-        style={{ paddingBottom: insets.bottom + Spacing.three, borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#E0E1E6" }}
+        style={{ paddingBottom: insets.bottom + Spacing.three, borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#DEE5ED" }}
       >
         <View className="flex-row items-end justify-between">
           <View>

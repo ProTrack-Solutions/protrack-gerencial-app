@@ -13,7 +13,7 @@ import { SearchCatalogProducts } from "@/service/purchases.service";
 import { formatCurrency } from "@/utils/format";
 import { haptics } from "@/utils/haptics";
 
-const divider = { borderBottomWidth: StyleSheet.hairlineWidth, borderColor: "#E0E1E6" };
+const divider = { borderBottomWidth: StyleSheet.hairlineWidth, borderColor: "#DEE5ED" };
 
 /** Nome do produto com a variação da grade: "Camiseta · Azul · M". */
 export function catalogLabel(p: { product_name?: string; name?: string; color: string; size: string }) {
@@ -46,7 +46,7 @@ export function VendorSelect({ vendors, loading, error, value, onChange, invalid
         accessibilityRole="button"
         className={`flex-row items-center gap-three rounded-two border bg-field p-three active:opacity-70 ${invalid ? "border-danger" : "border-line"}`}
       >
-        <Ionicons name="business-outline" size={18} color={value ? BrandColor : "#8B8D98"} />
+        <Ionicons name="business-outline" size={18} color={value ? BrandColor : "#8A94A6"} />
         <View className="flex-1">
           <ThemedText className={value ? "" : "text-placeholder"}>{value?.name ?? "Selecione o fornecedor"}</ThemedText>
           {value?.email ? (
@@ -55,7 +55,7 @@ export function VendorSelect({ vendors, loading, error, value, onChange, invalid
             </ThemedText>
           ) : null}
         </View>
-        <Ionicons name="chevron-down" size={18} color="#60646C" />
+        <Ionicons name="chevron-down" size={18} color="#566176" />
       </Pressable>
 
       <BottomSheet visible={open} title="Fornecedor" onClose={() => setOpen(false)}>
