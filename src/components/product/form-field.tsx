@@ -5,7 +5,7 @@ import { TextInput, View, type TextInputProps } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 
 /** Cor do placeholder (`placeholderTextColor` não aceita classe). Igual ao token `placeholder`. */
-export const PLACEHOLDER_COLOR = "#8B8D98";
+export const PLACEHOLDER_COLOR = "#8A94A6";
 
 type FieldLabelProps = {
   label: string;

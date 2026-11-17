@@ -7,7 +7,7 @@ import type { CashFlowPeriod } from "@/interfaces/cash-flow.interface";
 
 const INFLOW_COLOR = "#38A169";
 const OUTFLOW_COLOR = "#E53E3E";
-const BALANCE_COLOR = "#3c87f7";
+const BALANCE_COLOR = "#4896EA";
 const HEIGHT = 200;
 const LABEL_HEIGHT = 18;
 const PADDING = { top: 20, bottom: 8, left: 4, right: 4 };
@@ -118,7 +118,7 @@ export function HistoryChart({ periods, projection }: HistoryChartProps) {
                     y={PADDING.top - 14}
                     width={slotWidth * projectionSlots}
                     height={plotHeight + 14}
-                    fill="#EEF5FF"
+                    fill="#EBF3FD"
                   />
                   <SvgText
                     x={
@@ -145,7 +145,7 @@ export function HistoryChart({ periods, projection }: HistoryChartProps) {
                     x2={width - PADDING.right}
                     y1={gy}
                     y2={gy}
-                    stroke="#E0E1E6"
+                    stroke="#DEE5ED"
                     strokeDasharray="4 4"
                   />
                 );
@@ -209,7 +209,7 @@ export function HistoryChart({ periods, projection }: HistoryChartProps) {
                     x={i === 0 ? PADDING.left : x(i)}
                     y={HEIGHT + 12}
                     fontSize={10}
-                    fill="#60646C"
+                    fill="#566176"
                     // O primeiro rótulo ancora à esquerda para não cortar na borda.
                     textAnchor={i === 0 ? "start" : "middle"}
                   >

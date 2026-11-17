@@ -3,7 +3,8 @@ import { isAxiosError } from "axios";
 import { LoginRequest, LoginResponse, User } from "@/interfaces/auth.interface";
 import { apiClient } from "./api.service";
 
-export const AUTH_AUDIENCE = "protrack-stock-app";
+// Precisa ser um dos `aud` aceitos pela API (protrack-api: jwt.AudienceApp).
+export const AUTH_AUDIENCE = "protrack-gerencial-app";
 
 export const Login = async (params: LoginRequest): Promise<LoginResponse> => {
   const response = await apiClient.post<LoginResponse>("/auth/login", params);

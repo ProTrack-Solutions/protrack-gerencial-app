@@ -26,7 +26,7 @@ const QUICK_ACTIONS: QuickAction[] = [
   { label: "Nova Venda", icon: "cart-outline", onPress: () => router.push("/nova-venda") },
   { label: "Novo Produto", icon: "cube-outline", color: QUICK_ACTION_COLORS.blue, onPress: () => router.push("/novo-produto") },
   { label: "Novo Cliente", icon: "person-add-outline", color: QUICK_ACTION_COLORS.purple, onPress: () => router.push("/novo-cliente") },
-  { label: "Caixa", icon: "calculator-outline", color: QUICK_ACTION_COLORS.cyan, onPress: comingSoon },
+  { label: "Caixa", icon: "calculator-outline", color: QUICK_ACTION_COLORS.cyan, onPress: () => router.push("/caixa") },
 ];
 
 export default function HomeScreen() {
@@ -112,7 +112,12 @@ export default function HomeScreen() {
           />
           <QuickActions actions={QUICK_ACTIONS} />
           <SalesSummaryCard summary={data.salesSummary} />
-          <AlertsCard announcements={data.announcements} onSeeAll={comingSoon} />
+          <AlertsCard
+            announcements={data.announcements}
+            onOpen={(aviso) =>
+              router.push(aviso ? { pathname: "/avisos", params: { aviso: JSON.stringify(aviso) } } : "/avisos")
+            }
+          />
           <CashFlowChart data={data.cashFlow} />
           <TopProductsCard products={data.topProducts} />
           <PaymentMethodsChart stats={data.paymentMethods} />

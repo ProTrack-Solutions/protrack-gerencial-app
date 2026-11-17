@@ -28,6 +28,8 @@ import {
   type BiometricSupport,
 } from "@/utils/biometrics";
 
+import { loginTransition } from "@/utils/login-transition";
+
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 
 /** Erro do login por biometria já com a mensagem para o usuário. */
@@ -134,6 +136,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setUser(me);
     setSignedInNow(true);
+    // O líquido cobre o login; a troca para o painel acontece por baixo dele.
+    await loginTransition.cover();
     setStatus("authenticated");
     return me;
   }, []);

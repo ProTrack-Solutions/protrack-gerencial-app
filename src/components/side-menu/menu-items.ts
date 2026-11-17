@@ -31,6 +31,8 @@ export const MENU_SECTIONS: MenuSection[] = [
     items: [
       { label: "Vendas", href: "/vendas", icon: "receipt-outline", activeIcon: "receipt" },
       { label: "Nova Venda", href: "/nova-venda", icon: "cart-outline", activeIcon: "cart" },
+      { label: "Trocas e Devoluções", href: "/devolucoes", icon: "return-down-back-outline", activeIcon: "return-down-back" },
+      { label: "Caixa", href: "/caixa", icon: "calculator-outline", activeIcon: "calculator" },
     ],
   },
   {
@@ -53,6 +55,17 @@ export const MENU_SECTIONS: MenuSection[] = [
         activeIcon: "wallet",
         adminOnly: true,
       },
+    ],
+  },
+  {
+    title: "Relatórios",
+    module: "reports",
+    items: [{ label: "Relatórios", href: "/relatorios", icon: "bar-chart-outline", activeIcon: "bar-chart" }],
+    title: "Compras",
+    module: "purchases",
+    items: [
+      { label: "Pedidos de Compra", href: "/compras", icon: "bag-handle-outline", activeIcon: "bag-handle" },
+      { label: "Novo Pedido", href: "/novo-pedido-compra", icon: "bag-add-outline", activeIcon: "bag-add" },
     ],
   },
   {

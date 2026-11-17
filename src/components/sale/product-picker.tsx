@@ -52,7 +52,7 @@ export function ProductPicker({ visible, onClose, onSelect }: ProductPickerProps
               }}
               disabled={outOfStock}
               className={`flex-row items-center gap-three py-three active:opacity-60 ${outOfStock ? "opacity-40" : ""}`}
-              style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: "#E0E1E6" }}
+              style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: "#DEE5ED" }}
             >
               <View className="flex-1 gap-half">
                 <ThemedText>{item.name}</ThemedText>

@@ -29,7 +29,7 @@ export function NumberField({
   return (
     <View className={["gap-two", className].filter(Boolean).join(" ")}>
       <View className="flex-row items-center gap-one">
-        {icon && <Ionicons name={icon} size={14} color="#60646C" />}
+        {icon && <Ionicons name={icon} size={14} color="#566176" />}
         <FieldLabel>{label}</FieldLabel>
       </View>
       <TextInput
@@ -37,10 +37,10 @@ export function NumberField({
         onChangeText={(t) => onChangeText(t.replace(decimal ? /[^0-9.,]/g : /[^0-9]/g, ""))}
         keyboardType={decimal ? "decimal-pad" : "number-pad"}
         placeholder={placeholder}
-        placeholderTextColor="#60646C"
+        placeholderTextColor="#566176"
         selectTextOnFocus
         className="rounded-two bg-paper px-three py-three text-base text-ink"
-        style={{ borderWidth: 1, borderColor: error ? "#DC2626" : "#E0E1E6" }}
+        style={{ borderWidth: 1, borderColor: error ? "#DC2626" : "#DEE5ED" }}
       />
       {error && (
         <ThemedText type="small" className="text-xs" style={{ color: "#DC2626" }}>
