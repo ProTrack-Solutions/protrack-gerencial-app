@@ -143,11 +143,11 @@ function DepartmentSheet({
                 accessibilityState={{ checked: on }}
                 className={`flex-row items-center gap-three rounded-two border p-three active:opacity-70 ${on ? "border-brand bg-brand-soft" : "border-line bg-paper"}`}
               >
-                <Ionicons name={MODULE_ICONS[m.code] ?? "apps-outline"} size={18} color={on ? "#3c87f7" : "#60646C"} />
+                <Ionicons name={MODULE_ICONS[m.code] ?? "apps-outline"} size={18} color={on ? "#4896EA" : "#566176"} />
                 <ThemedText type="smallBold" className={`flex-1 ${on ? "text-brand" : ""}`}>
                   {m.name}
                 </ThemedText>
-                <Ionicons name={on ? "checkbox" : "square-outline"} size={20} color={on ? "#3c87f7" : "#8B8D98"} />
+                <Ionicons name={on ? "checkbox" : "square-outline"} size={20} color={on ? "#4896EA" : "#8A94A6"} />
               </Pressable>
             );
           })
@@ -216,7 +216,7 @@ export default function DepartmentsScreen() {
             <View className="flex-row flex-wrap gap-one">
               {d.modules?.map((m) => (
                 <View key={m.code} className="flex-row items-center gap-one rounded-full bg-surface px-two py-half">
-                  <Ionicons name={MODULE_ICONS[m.code] ?? "apps-outline"} size={12} color="#60646C" />
+                  <Ionicons name={MODULE_ICONS[m.code] ?? "apps-outline"} size={12} color="#566176" />
                   <ThemedText type="small" className="text-[11px]">
                     {m.name}
                   </ThemedText>

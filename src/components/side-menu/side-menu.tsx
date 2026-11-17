@@ -160,7 +160,7 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
 
             <View className="flex-row items-center gap-three rounded-three bg-white/[0.16] p-three">
               <View className="h-11 w-11 items-center justify-center rounded-full bg-white">
-                <ThemedText className="font-bold text-[#7C4FE0]">
+                <ThemedText className="font-bold text-[#4896EA]">
                   {initials(user?.name)}
                 </ThemedText>
               </View>
@@ -212,7 +212,7 @@ export function SideMenu({ visible, onClose }: SideMenuProps) {
               className="flex-row items-center gap-three rounded-three p-two active:bg-paper/70"
             >
               <View className="h-9 w-9 items-center justify-center rounded-two bg-paper">
-                <Ionicons name="settings-outline" size={18} color="#60646C" />
+                <Ionicons name="settings-outline" size={18} color="#566176" />
               </View>
               <ThemedText type="smallBold" className={pathname === "/configuracoes" ? "text-brand" : ""}>
                 Configurações
@@ -274,7 +274,7 @@ function MenuRow({
         </LinearGradient>
       ) : (
         <View className="h-9 w-9 items-center justify-center rounded-two bg-paper">
-          <Ionicons name={item.icon} size={18} color="#60646C" />
+          <Ionicons name={item.icon} size={18} color="#566176" />
         </View>
       )}
       <ThemedText
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     overflow: "hidden",
-    backgroundColor: "#F0F0F3",
+    backgroundColor: "#F1F5F9",
     borderTopRightRadius: 24,
     borderBottomRightRadius: 24,
   },

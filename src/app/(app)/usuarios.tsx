@@ -124,7 +124,7 @@ function UserSheet({ target, visible, onClose, onSaved }: { target: CompanyUser 
             error={errors.password}
             suffix={
               <Pressable onPress={() => setShowPassword((v) => !v)} hitSlop={8} accessibilityLabel={showPassword ? "Esconder senha" : "Mostrar senha"}>
-                <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#60646C" />
+                <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#566176" />
               </Pressable>
             }
           />
@@ -185,7 +185,7 @@ export default function UsersScreen() {
               .filter(Boolean)
               .join("\n")}
             icon={u.role === "ADMIN" ? "shield-checkmark-outline" : "person-outline"}
-            color={u.role === "ADMIN" ? "#7C3AED" : "#3c87f7"}
+            color={u.role === "ADMIN" ? "#7C3AED" : "#4896EA"}
             active={u.status === "ACTIVE"}
             toggling={list.togglingId === u.id}
             onPress={() => {

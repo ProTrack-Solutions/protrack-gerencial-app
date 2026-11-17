@@ -216,7 +216,7 @@ export default function SystemSettingsScreen() {
                     haptics.select();
                     save("require_open_cash_register", v, v ? "Agora é preciso abrir o caixa para vender." : "Vendas liberadas mesmo com o caixa fechado.");
                   }}
-                  trackColor={{ true: BrandColor, false: "#E0E1E6" }}
+                  trackColor={{ true: BrandColor, false: "#DEE5ED" }}
                   thumbColor="#ffffff"
                   accessibilityLabel="Exigir caixa aberto"
                 />
