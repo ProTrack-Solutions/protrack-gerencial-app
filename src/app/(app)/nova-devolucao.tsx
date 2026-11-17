@@ -44,7 +44,7 @@ function SaleRow({ sale, loading, onPress }: { sale: SaleSearchItem; loading: bo
           </ThemedText>
         </View>
         <ThemedText className="font-bold">{formatCurrency(sale.total_amount)}</ThemedText>
-        {loading ? <ActivityIndicator size="small" /> : <Ionicons name="chevron-forward" size={18} color="#8B8D98" />}
+        {loading ? <ActivityIndicator size="small" /> : <Ionicons name="chevron-forward" size={18} color="#8A94A6" />}
       </View>
       <ThemedText type="small" className="text-xs" numberOfLines={2}>
         {sale.products}

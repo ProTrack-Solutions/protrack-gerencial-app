@@ -315,7 +315,7 @@ export function ReturnForm({ sale, onCancel, onCreated }: ReturnFormProps) {
                   active ? "border-brand bg-brand-soft" : "border-line bg-paper"
                 } ${blocked ? "opacity-50" : ""}`}
               >
-                <Ionicons name={option.icon} size={20} color={active ? "#3c87f7" : "#60646C"} />
+                <Ionicons name={option.icon} size={20} color={active ? "#4896EA" : "#566176"} />
                 <ThemedText type="smallBold" className={active ? "text-brand" : ""}>
                   {option.title}
                 </ThemedText>
@@ -425,7 +425,7 @@ export function ReturnForm({ sale, onCancel, onCreated }: ReturnFormProps) {
                 accessibilityRole="button"
                 className="flex-1 flex-row items-center justify-center gap-two rounded-two border border-brand-line bg-brand-soft py-three active:opacity-70"
               >
-                <Ionicons name="search" size={16} color="#3c87f7" />
+                <Ionicons name="search" size={16} color="#4896EA" />
                 <ThemedText type="smallBold" className="text-brand">
                   Buscar produto
                 </ThemedText>
@@ -548,7 +548,7 @@ export function ReturnForm({ sale, onCancel, onCreated }: ReturnFormProps) {
       {/* Rodapé fixo com o resultado e a confirmação. */}
       <View
         className="gap-three bg-paper px-four pt-three"
-        style={{ paddingBottom: insets.bottom + Spacing.three, borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#E0E1E6" }}
+        style={{ paddingBottom: insets.bottom + Spacing.three, borderTopWidth: StyleSheet.hairlineWidth, borderColor: "#DEE5ED" }}
       >
         {blocked ? (
           <View className="flex-row items-start gap-two rounded-two bg-rose-50 p-three">

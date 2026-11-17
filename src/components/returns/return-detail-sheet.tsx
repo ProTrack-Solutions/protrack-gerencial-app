@@ -138,7 +138,7 @@ export function ReturnDetailSheet({ id, initial, onClose }: ReturnDetailSheetPro
             accessibilityRole="button"
             className="flex-row items-center justify-center gap-two rounded-three border border-brand-line bg-brand-soft py-three active:opacity-70"
           >
-            <Ionicons name="share-outline" size={18} color="#3c87f7" />
+            <Ionicons name="share-outline" size={18} color="#4896EA" />
             <ThemedText type="smallBold" className="text-brand">
               Compartilhar comprovante
             </ThemedText>

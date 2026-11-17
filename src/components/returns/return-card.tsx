@@ -29,7 +29,7 @@ export function ReturnCard({ item: r, onPress }: { item: ReturnListItem; onPress
     <Pressable onPress={onPress} accessibilityRole="button" className="gap-three rounded-three border border-line bg-paper p-three active:bg-surface">
       <View className="flex-row items-start gap-three">
         <View className={`h-10 w-10 items-center justify-center rounded-two ${r.kind === "exchange" ? "bg-brand-soft" : "bg-amber-50"}`}>
-          <Ionicons name={kind.icon} size={20} color={r.kind === "exchange" ? "#3c87f7" : "#B45309"} />
+          <Ionicons name={kind.icon} size={20} color={r.kind === "exchange" ? "#4896EA" : "#B45309"} />
         </View>
         <View className="flex-1 gap-half">
           <ThemedText className="font-bold" numberOfLines={1}>
