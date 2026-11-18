@@ -11,7 +11,6 @@ import { SectionCard } from "@/components/sale/section-card";
 import { ThemedText } from "@/components/themed-text";
 import { ScreenHeader } from "@/components/ui/screen-header";
 import { BrandColor, Gradients } from "@/constants/theme";
-import { useAppLock } from "@/contexts/app-lock-context";
 import { useAuth } from "@/contexts/auth-context";
 import { FormSheet } from "@/components/ui/form-sheet";
 import { getApiErrorMessage } from "@/service/api.service";
@@ -51,7 +50,6 @@ function PasswordInput({ value, onChangeText, placeholder, error }: { value: str
 export default function SecurityScreen() {
   const insets = useSafeAreaInsets();
   const { signOut, user, biometric } = useAuth();
-  const lock = useAppLock();
   const [askPassword, setAskPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmError, setConfirmError] = useState<string>();
@@ -61,7 +59,6 @@ export default function SecurityScreen() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [saving, setSaving] = useState(false);
-  const [toggling, setToggling] = useState(false);
 
   const rulesOk = RULES.every((r) => r.test(password));
   const matches = confirm.length > 0 && confirm === password;
@@ -91,18 +88,6 @@ export default function SecurityScreen() {
       Alert.alert("Erro ao alterar senha", getApiErrorMessage(error, "Confira a senha atual e tente de novo."));
     } finally {
       setSaving(false);
-    }
-  };
-
-  const toggleLock = async (value: boolean) => {
-    setToggling(true);
-    try {
-      const changed = await lock.setEnabled(value);
-      if (!changed && value) Alert.alert("Não ativado", "A biometria não foi confirmada.");
-    } catch {
-      Alert.alert("Erro", "Não foi possível alterar o desbloqueio por biometria.");
-    } finally {
-      setToggling(false);
     }
   };
 
@@ -173,7 +158,7 @@ export default function SecurityScreen() {
           <View className="flex-row items-center gap-three">
             <ThemedText type="small" themeColor="textSecondary" className="flex-1">
               {biometric.support.canStoreCredentials
-                ? `Entre no app com ${biometric.support.label}, sem digitar a senha. A senha fica no cofre seguro do aparelho.`
+                ? `Quando a sessão expirar, entre de novo com ${biometric.support.label}, sem digitar a senha. A senha fica no cofre seguro do aparelho.`
                 : "Cadastre uma digital, o rosto ou um bloqueio de tela (PIN/padrão) nas configurações do aparelho para usar este recurso."}
             </ThemedText>
             <Switch
@@ -183,24 +168,6 @@ export default function SecurityScreen() {
               trackColor={{ true: BrandColor, false: "#DEE5ED" }}
               thumbColor="#ffffff"
               accessibilityLabel="Entrar com biometria"
-            />
-          </View>
-        </SectionCard>
-
-        <SectionCard title="Desbloqueio por biometria" icon="finger-print-outline">
-          <View className="flex-row items-center gap-three">
-            <ThemedText type="small" themeColor="textSecondary" className="flex-1">
-              {lock.support.available
-                ? `Pede ${lock.support.label} ao abrir o app e ao voltar depois de 1 minuto fora dele.`
-                : "Cadastre a biometria ou o bloqueio de tela nas configurações do aparelho para usar este recurso."}
-            </ThemedText>
-            <Switch
-              value={lock.enabled}
-              onValueChange={toggleLock}
-              disabled={toggling || (!lock.support.available && !lock.enabled)}
-              trackColor={{ true: BrandColor, false: "#DEE5ED" }}
-              thumbColor="#ffffff"
-              accessibilityLabel="Desbloqueio por biometria"
             />
           </View>
         </SectionCard>

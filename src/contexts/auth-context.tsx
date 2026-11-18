@@ -60,8 +60,6 @@ type AuthContextValue = {
     acceptOffer: () => Promise<boolean>;
     dismissOffer: () => void;
   };
-  /** Entrou com senha/biometria agora (não é sessão restaurada ao abrir o app). */
-  signedInNow: boolean;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -72,7 +70,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [support, setSupport] = useState<BiometricSupport>(NO_BIOMETRIC_SUPPORT);
   const [profile, setProfile] = useState<BiometricProfile | null>(null);
   const [offer, setOffer] = useState<{ email: string; password: string; name: string } | null>(null);
-  const [signedInNow, setSignedInNow] = useState(false);
 
   const endSession = useCallback(() => {
     setUser(null);
@@ -135,7 +132,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw error;
     }
     setUser(me);
-    setSignedInNow(true);
     // O líquido cobre o login; a troca para o painel acontece por baixo dele.
     await loginTransition.cover();
     setStatus("authenticated");
@@ -151,7 +147,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     await tokenStorage.clear();
     setOffer(null);
-    setSignedInNow(false);
     markSignedOut();
     endSession();
   }, [endSession]);
@@ -249,8 +244,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo(
-    () => ({ status, user, signIn, signOut, refreshUser, biometric, signedInNow }),
-    [status, user, signIn, signOut, refreshUser, biometric, signedInNow],
+    () => ({ status, user, signIn, signOut, refreshUser, biometric }),
+    [status, user, signIn, signOut, refreshUser, biometric],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
