@@ -37,12 +37,7 @@
       ],
       "expo-font",
       "expo-web-browser",
-      [
-        "expo-secure-store",
-        {
-          "faceIDPermission": "Permita que o ProTrack use o Face ID para entrar e desbloquear o app."
-        }
-      ],
+      "expo-secure-store",
       [
         "expo-camera",
         {
@@ -50,13 +45,7 @@
           "recordAudioAndroid": false
         }
       ],
-      "@react-native-community/datetimepicker",
-      [
-        "expo-local-authentication",
-        {
-          "faceIDPermission": "Permita que o ProTrack use o Face ID para entrar e desbloquear o app."
-        }
-      ]
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true,
