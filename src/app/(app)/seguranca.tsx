@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, Pressable, Switch, View } from "react-native";
+import { Alert, Pressable, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -10,12 +10,9 @@ import { FormInput, FormLabel } from "@/components/product/form-field";
 import { SectionCard } from "@/components/sale/section-card";
 import { ThemedText } from "@/components/themed-text";
 import { ScreenHeader } from "@/components/ui/screen-header";
-import { BrandColor, Gradients } from "@/constants/theme";
-import { useAppLock } from "@/contexts/app-lock-context";
+import { Gradients } from "@/constants/theme";
 import { useAuth } from "@/contexts/auth-context";
-import { FormSheet } from "@/components/ui/form-sheet";
 import { getApiErrorMessage } from "@/service/api.service";
-import { AUTH_AUDIENCE, getLoginErrorMessage, Login } from "@/service/auth.service";
 import { UpdatePassword } from "@/service/user.service";
 import { haptics } from "@/utils/haptics";
 
@@ -50,18 +47,11 @@ function PasswordInput({ value, onChangeText, placeholder, error }: { value: str
 
 export default function SecurityScreen() {
   const insets = useSafeAreaInsets();
-  const { signOut, user, biometric } = useAuth();
-  const lock = useAppLock();
-  const [askPassword, setAskPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [confirmError, setConfirmError] = useState<string>();
-  const [enabling, setEnabling] = useState(false);
-  const biometricOn = Boolean(user && biometric.profile?.email.toLowerCase() === user.email.toLowerCase());
+  const { signOut } = useAuth();
   const [current, setCurrent] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [saving, setSaving] = useState(false);
-  const [toggling, setToggling] = useState(false);
 
   const rulesOk = RULES.every((r) => r.test(password));
   const matches = confirm.length > 0 && confirm === password;
@@ -73,15 +63,6 @@ export default function SecurityScreen() {
     try {
       await UpdatePassword({ current_password: current, password });
       haptics.success();
-      // A senha guardada para a biometria precisa acompanhar a troca.
-      if (biometricOn && user) {
-        try {
-          await biometric.updatePassword(user.email, password);
-        } catch {
-          await biometric.disable();
-          Alert.alert("Biometria desativada", "Entre com a nova senha e ative a entrada por biometria de novo.");
-        }
-      }
       setCurrent("");
       setPassword("");
       setConfirm("");
@@ -94,72 +75,6 @@ export default function SecurityScreen() {
     }
   };
 
-  const toggleLock = async (value: boolean) => {
-    setToggling(true);
-    try {
-      const changed = await lock.setEnabled(value);
-      if (!changed && value) Alert.alert("Não ativado", "A biometria não foi confirmada.");
-    } catch {
-      Alert.alert("Erro", "Não foi possível alterar o desbloqueio por biometria.");
-    } finally {
-      setToggling(false);
-    }
-  };
-
-  const toggleBiometricLogin = (value: boolean) => {
-    if (!value) {
-      haptics.warning();
-      Alert.alert("Desativar entrada por biometria?", "Na próxima vez você vai precisar digitar a senha.", [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Desativar",
-          style: "destructive",
-          onPress: async () => {
-            await biometric.disable();
-            haptics.success();
-          },
-        },
-      ]);
-      return;
-    }
-    setConfirmPassword("");
-    setConfirmError(undefined);
-    setAskPassword(true);
-  };
-
-  /** Confere a senha na API antes de guardá-la no cofre do aparelho. */
-  const confirmBiometricLogin = async () => {
-    if (!user) return;
-    if (!confirmPassword) {
-      setConfirmError("Digite sua senha.");
-      return haptics.warning();
-    }
-    setEnabling(true);
-    try {
-      await Login({ email: user.email, password: confirmPassword, aud: AUTH_AUDIENCE });
-    } catch (error) {
-      haptics.error();
-      setConfirmError(getLoginErrorMessage(error));
-      setEnabling(false);
-      return;
-    }
-    try {
-      const ok = await biometric.enable(user.email, confirmPassword, user.name);
-      if (ok) {
-        haptics.success();
-        setAskPassword(false);
-      } else {
-        haptics.warning();
-        setConfirmError(`Não foi possível confirmar ${biometric.support.label}. Tente de novo.`);
-      }
-    } catch {
-      haptics.error();
-      setConfirmError(`Não foi possível confirmar ${biometric.support.label}.`);
-    } finally {
-      setEnabling(false);
-    }
-  };
-
   return (
     <View className="flex-1 bg-surface">
       <ScreenHeader title="Segurança" subtitle="Senha e proteção do app." leading={{ type: "back", onPress: router.back }} />
@@ -169,42 +84,6 @@ export default function SecurityScreen() {
         contentContainerClassName="w-full max-w-content self-center gap-three p-three"
         contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
       >
-        <SectionCard title="Entrar com biometria" icon="scan-outline">
-          <View className="flex-row items-center gap-three">
-            <ThemedText type="small" themeColor="textSecondary" className="flex-1">
-              {biometric.support.canStoreCredentials
-                ? `Entre no app com ${biometric.support.label}, sem digitar a senha. A senha fica no cofre seguro do aparelho.`
-                : "Cadastre uma digital, o rosto ou um bloqueio de tela (PIN/padrão) nas configurações do aparelho para usar este recurso."}
-            </ThemedText>
-            <Switch
-              value={biometricOn}
-              onValueChange={toggleBiometricLogin}
-              disabled={enabling || (!biometric.support.canStoreCredentials && !biometricOn)}
-              trackColor={{ true: BrandColor, false: "#DEE5ED" }}
-              thumbColor="#ffffff"
-              accessibilityLabel="Entrar com biometria"
-            />
-          </View>
-        </SectionCard>
-
-        <SectionCard title="Desbloqueio por biometria" icon="finger-print-outline">
-          <View className="flex-row items-center gap-three">
-            <ThemedText type="small" themeColor="textSecondary" className="flex-1">
-              {lock.support.available
-                ? `Pede ${lock.support.label} ao abrir o app e ao voltar depois de 1 minuto fora dele.`
-                : "Cadastre a biometria ou o bloqueio de tela nas configurações do aparelho para usar este recurso."}
-            </ThemedText>
-            <Switch
-              value={lock.enabled}
-              onValueChange={toggleLock}
-              disabled={toggling || (!lock.support.available && !lock.enabled)}
-              trackColor={{ true: BrandColor, false: "#DEE5ED" }}
-              thumbColor="#ffffff"
-              accessibilityLabel="Desbloqueio por biometria"
-            />
-          </View>
-        </SectionCard>
-
         <SectionCard title="Alterar senha" icon="lock-closed-outline">
           <View className="gap-two">
             <FormLabel label="Senha atual" required />
@@ -263,25 +142,6 @@ export default function SecurityScreen() {
           </ThemedText>
         </Pressable>
       </KeyboardAwareScrollView>
-
-      <FormSheet
-        visible={askPassword}
-        title={`Entrar com ${biometric.support.label}`}
-        subtitle="Confirme sua senha para ativar neste aparelho."
-        icon="scan-outline"
-        onClose={() => setAskPassword(false)}
-        submit={{ label: enabling ? "Confirmando..." : "Ativar", icon: "checkmark-circle-outline", onPress: confirmBiometricLogin, loading: enabling }}
-      >
-        <View className="gap-two">
-          <FormLabel label="Senha atual" required />
-          <PasswordInput value={confirmPassword} onChangeText={setConfirmPassword} placeholder="Digite sua senha" error={Boolean(confirmError)} />
-          {confirmError && (
-            <ThemedText type="small" className="text-xs text-danger">
-              {confirmError}
-            </ThemedText>
-          )}
-        </View>
-      </FormSheet>
     </View>
   );
 }

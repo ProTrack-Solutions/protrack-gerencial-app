@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "protrack-gerencial-app",
+    "name": "ProTrack Gerencial",
     "slug": "protrack-gerencial-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +19,10 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.protrackgerencialapp"
+      "package": "com.anonymous.protrackgerencialapp",
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "output": "static",
@@ -37,12 +40,7 @@
       ],
       "expo-font",
       "expo-web-browser",
-      [
-        "expo-secure-store",
-        {
-          "faceIDPermission": "Permita que o ProTrack use o Face ID para entrar e desbloquear o app."
-        }
-      ],
+      "expo-secure-store",
       [
         "expo-camera",
         {
@@ -50,17 +48,17 @@
           "recordAudioAndroid": false
         }
       ],
-      "@react-native-community/datetimepicker",
-      [
-        "expo-local-authentication",
-        {
-          "faceIDPermission": "Permita que o ProTrack use o Face ID para entrar e desbloquear o app."
-        }
-      ]
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6e1fd950-ca82-4e17-bcec-0e97181bde2e"
+      }
     }
   }
 }
