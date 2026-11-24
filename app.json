@@ -19,7 +19,10 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.protrackgerencialapp"
+      "package": "com.anonymous.protrackgerencialapp",
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "output": "static",
@@ -50,6 +53,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6e1fd950-ca82-4e17-bcec-0e97181bde2e"
+      }
     }
   }
 }
